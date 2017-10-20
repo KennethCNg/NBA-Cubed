@@ -77,27 +77,35 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh, sphere;
+var geometry, material, mesh, sphere, light, light1, lines;
 
 init();
 animate();
 
 function init() {
 
+    // camera and lights //
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.z = 1000;
+    camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight);
+    // camera = new THREE.StereoCamera( 40, window.innerWidth / window.innerHeight);
 
-    // geometry = new THREE.BoxGeometry( 200, 200, 200 );
-    geometry = new THREE.SphereBufferGeometry(200, 200, 200);
-    material = new THREE.MeshBasicMaterial({ color: "#33F6FF" });
+    light = new THREE.AmbientLight(0xffffff, 1);
+    // light1 = new THREE.PointLight(0xffffff, 1);
+    light1 = new THREE.DirectionalLight(0xffffff, 1);
 
+    // lines //
+
+    lines = new THREE.LineBasicMaterial({ color: "000000" });
+
+    // sphere //
+    geometry = new THREE.SphereGeometry(10, 32, 32);
+    material = new THREE.MeshPhongMaterial({ color: "#cc8400" });
     sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-    mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+    sphere.position.set(0, 0, -75);
+    scene.add(sphere, light, light1);
 
+    // control viewer perspective //
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -108,8 +116,8 @@ function animate() {
 
     requestAnimationFrame(animate);
 
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.02;
+    sphere.rotation.x += 0.05;
+    sphere.rotation.y += 0.05;
 
     renderer.render(scene, camera);
 }
