@@ -77,7 +77,7 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh;
+var geometry, material, mesh, sphere;
 
 init();
 animate();
@@ -89,9 +89,12 @@ function init() {
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 1000;
 
-    geometry = new THREE.BoxGeometry(200, 200, 200);
-    material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+    // geometry = new THREE.BoxGeometry( 200, 200, 200 );
+    geometry = new THREE.SphereBufferGeometry(200, 200, 200);
+    material = new THREE.MeshBasicMaterial({ color: "#33F6FF" });
 
+    sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
     mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
