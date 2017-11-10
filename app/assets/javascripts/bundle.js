@@ -77,7 +77,7 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh, sphere, light, light1, lines, map, cube, posx, posy;
+var geometry, material, mesh, sphere, light, light1, lines, map, cube;
 var cubeArr = [];
 
 init();
@@ -102,7 +102,7 @@ function init() {
 
     // sphere //
     geometry = new THREE.BoxBufferGeometry(32, 32, 32);
-    material = new THREE.MeshBasicMaterial({ color: "#1919ff" });
+    material = new THREE.MeshBasicMaterial({ color: "purple" });
     sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(-50, -50, -500);
     scene.add(sphere);
@@ -133,25 +133,48 @@ function init() {
 
 // determine random position of cube
 function generateRandNum() {
-    var num = Math.random() * 300;
+    var num = Math.random() * 600;
     var sign = Math.round(Math.random() * 100);
 
     if (sign % 2 === 0) {
         num = 0 - num;
     }
-
     return num;
+}
+
+function generateRandDepth() {
+    var num = Math.random() * 1000;
+    num = 0 - num;
+
+    if (num > -400) {
+        return generateRandDepth();
+    } else {
+        return num;
+    }
+}
+
+// determine random color of cube
+
+function generateRandomColor() {
+    var colors = ["#E74C3C", "#5DADE2", "green", "#F1C40F", "#A569BD", "#F5B041", "#AAB7B8"];
+
+    var num = Math.round(Math.random() * 100);
+    var idx = num % 7;
+    return colors[idx];
 }
 
 // cube
 function createCube() {
 
-    posx = generateRandNum();
-    posy = generateRandNum();
+    var posx = generateRandNum();
+    var posy = generateRandNum();
+    var posz = generateRandNum();
+    var col = generateRandomColor();
     geometry = new THREE.BoxBufferGeometry(32, 32, 32);
-    material = new THREE.MeshPhongMaterial({ color: "#C70039" });
+    material = new THREE.MeshPhongMaterial({ color: "" + col });
     cube = new THREE.Mesh(geometry, material);
-    cube.position.set(posx, posy, -500);
+    var depth = generateRandDepth();
+    cube.position.set(posx, posy, depth);
     scene.add(cube);
     return cube;
 }
