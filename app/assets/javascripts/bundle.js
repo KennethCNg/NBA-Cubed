@@ -77,7 +77,8 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh, sphere, light, light1, lines, map, cube, pos;
+var geometry, material, mesh, sphere, light, light1, lines, map, cube, posx, posy;
+var cubeArr = [];
 
 init();
 animate();
@@ -95,18 +96,19 @@ function init() {
     light1 = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(light, light1);
 
-    for (var i = 0; i < 2; i++) {
-        pos = Math.random() * 100;
-        createCube(pos);
-    }
+    // for (let i = 0; i < 10; i++) {
+    // cubeArr.push( createCube() );
+    // }
 
-    function createCube(pos) {
-        geometry = new THREE.BoxGeometry(32, 32, 32);
-        material = new THREE.MeshPhongMaterial({ color: "#C70039" });
-        cube = new THREE.Mesh(geometry, material);
-        cube.position.set(pos, 0, -1000);
-        scene.add(cube);
-    }
+    // function createCube() {
+    posx = Math.random() * 500;
+    posy = Math.random() * 200;
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    material = new THREE.MeshPhongMaterial({ color: "#C70039" });
+    cube = new THREE.Mesh(geometry, material);
+    cube.position.set(posx, posy, -500);
+    scene.add(cube);
+    // }
 
     // cube //
 
