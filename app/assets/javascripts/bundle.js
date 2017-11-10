@@ -77,7 +77,7 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh, sphere, light, light1, lines;
+var geometry, material, mesh, sphere, light, light1, lines, map, cube, pos;
 
 init();
 animate();
@@ -87,23 +87,53 @@ function init() {
     // camera and lights //
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight);
+    camera = new THREE.PerspectiveCamera(100000, window.innerWidth / window.innerHeight);
     // camera = new THREE.StereoCamera( 40, window.innerWidth / window.innerHeight);
 
     light = new THREE.AmbientLight(0xffffff, 1);
     // light1 = new THREE.PointLight(0xffffff, 1);
     light1 = new THREE.DirectionalLight(0xffffff, 1);
+    scene.add(light, light1);
 
-    // lines //
+    for (var i = 0; i < 2; i++) {
+        pos = Math.random() * 100;
+        createCube(pos);
+    }
 
-    lines = new THREE.LineBasicMaterial({ color: "000000" });
+    function createCube(pos) {
+        geometry = new THREE.BoxGeometry(32, 32, 32);
+        material = new THREE.MeshPhongMaterial({ color: "#C70039" });
+        cube = new THREE.Mesh(geometry, material);
+        cube.position.set(pos, 0, -1000);
+        scene.add(cube);
+    }
+
+    // cube //
+
 
     // sphere //
-    geometry = new THREE.SphereGeometry(10, 32, 32);
-    material = new THREE.MeshPhongMaterial({ color: "#cc8400" });
-    sphere = new THREE.Mesh(geometry, material);
-    sphere.position.set(0, 0, -75);
-    scene.add(sphere, light, light1);
+    // geometry = new THREE.SphereBufferGeometry( 32, 32, 32 );
+    // material = new THREE.MeshBasicMaterial( {color: "#1919ff"} );
+    // sphere = new THREE.Mesh( geometry, material );
+    // sphere.position.set(-50, 0, -500);
+    // scene.add( sphere );
+
+    // load texture //
+
+    // var textureLoader = new THREE.TextureLoader();
+    // var sphereTexture = new textureLoader.load("./lib/textures/ball.png");
+    // if (sphereTexture ) {
+    //     console.log("found file");
+    // }
+
+    // var loader = new THREE.TextureLoader();
+    // loader.load( 'textures/ball.png', function ( texture ) {
+    //     geometry = new THREE.SphereGeometry( 200, 20, 20 );
+    //     material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
+    //     mesh = new THREE.Mesh( geometry, material );
+    //     scene.add( mesh );
+    // } );
+
 
     // control viewer perspective //
     renderer = new THREE.WebGLRenderer();
@@ -116,8 +146,11 @@ function animate() {
 
     requestAnimationFrame(animate);
 
-    sphere.rotation.x += 0.05;
-    sphere.rotation.y += 0.05;
+    cube.rotation.x += 0.03;
+    cube.rotation.y += 0.03;
+
+    // sphere.rotation.x += 0.03;
+    // sphere.rotation.y += 0.03;
 
     renderer.render(scene, camera);
 }
