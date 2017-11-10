@@ -77,7 +77,7 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh, sphere, light, light1, lines, map, cube;
+var geometry, material, mesh, sphere, light, light1, light2, lines, map, cube;
 var cubeArr = [];
 
 init();
@@ -91,10 +91,10 @@ function init() {
     camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
     // camera = new THREE.StereoCamera( 40, window.innerWidth / window.innerHeight);
 
-    light = new THREE.AmbientLight(0xffffff, 1);
-    // light1 = new THREE.PointLight(0xffffff, 1);
-    light1 = new THREE.DirectionalLight(0xffffff, 1);
-    scene.add(light, light1);
+    // light = new THREE.AmbientLight(0xffffff, 1);
+    light1 = new THREE.PointLight(0xffffff, 1);
+    // light2 = new THREE.DirectionalLight(0xffffff, 1);
+    scene.add(light, light1, light2);
 
     for (var i = 0; i < 10; i++) {
         cubeArr.push(createCube());
