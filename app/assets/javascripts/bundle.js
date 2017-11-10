@@ -77,7 +77,7 @@ var THREE = _interopRequireWildcard(_three);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var scene, camera, renderer;
-var geometry, material, mesh, sphere, light, light1, light2, lines, map, cube;
+var geometry, material, mesh, sphere, light, light1, light2, lines, map, cube, controls;
 var cubeArr = [];
 
 init();
@@ -94,41 +94,16 @@ function init() {
     // light = new THREE.AmbientLight(0xffffff, 1);
     light1 = new THREE.PointLight(0xffffff, 1);
     // light2 = new THREE.DirectionalLight(0xffffff, 1);
-    scene.add(light, light1, light2);
+    scene.add(light1);
 
     for (var i = 0; i < 10; i++) {
         cubeArr.push(createCube());
     }
 
-    // sphere //
-    geometry = new THREE.BoxBufferGeometry(32, 32, 32);
-    material = new THREE.MeshBasicMaterial({ color: "purple" });
-    sphere = new THREE.Mesh(geometry, material);
-    sphere.position.set(-50, -50, -500);
-    scene.add(sphere);
-
-    // load texture //
-
-    // var textureLoader = new THREE.TextureLoader();
-    // var sphereTexture = new textureLoader.load("./lib/textures/ball.png");
-    // if (sphereTexture ) {
-    //     console.log("found file");
-    // }
-
-    // var loader = new THREE.TextureLoader();
-    // loader.load( 'textures/ball.png', function ( texture ) {
-    //     geometry = new THREE.SphereGeometry( 200, 20, 20 );
-    //     material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
-    //     mesh = new THREE.Mesh( geometry, material );
-    //     scene.add( mesh );
-    // } );
-
-
     // control viewer perspective //
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
-
-    document.body.appendChild(renderer.domElement);
+    controls = new THREE.OrbitControls(camera);
 }
 
 // determine random position of cube
@@ -188,9 +163,6 @@ function animate() {
         cubeArr[i].rotation.x += 0.03;
         cubeArr[i].rotation.y += 0.03;
     }
-
-    sphere.rotation.x += 0.03;
-    sphere.rotation.y += 0.03;
 
     renderer.render(scene, camera);
 }
