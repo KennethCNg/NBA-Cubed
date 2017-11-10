@@ -88,7 +88,7 @@ function init() {
     // camera and lights //
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(100000, window.innerWidth / window.innerHeight);
+    camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
     // camera = new THREE.StereoCamera( 40, window.innerWidth / window.innerHeight);
 
     light = new THREE.AmbientLight(0xffffff, 1);
@@ -96,29 +96,16 @@ function init() {
     light1 = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(light, light1);
 
-    // for (let i = 0; i < 10; i++) {
-    // cubeArr.push( createCube() );
-    // }
-
-    // function createCube() {
-    posx = Math.random() * 500;
-    posy = Math.random() * 200;
-    geometry = new THREE.BoxGeometry(32, 32, 32);
-    material = new THREE.MeshPhongMaterial({ color: "#C70039" });
-    cube = new THREE.Mesh(geometry, material);
-    cube.position.set(posx, posy, -500);
-    scene.add(cube);
-    // }
-
-    // cube //
-
+    for (var i = 0; i < 10; i++) {
+        cubeArr.push(createCube());
+    }
 
     // sphere //
-    // geometry = new THREE.SphereBufferGeometry( 32, 32, 32 );
-    // material = new THREE.MeshBasicMaterial( {color: "#1919ff"} );
-    // sphere = new THREE.Mesh( geometry, material );
-    // sphere.position.set(-50, 0, -500);
-    // scene.add( sphere );
+    geometry = new THREE.BoxBufferGeometry(32, 32, 32);
+    material = new THREE.MeshBasicMaterial({ color: "#1919ff" });
+    sphere = new THREE.Mesh(geometry, material);
+    sphere.position.set(-50, -50, -500);
+    scene.add(sphere);
 
     // load texture //
 
@@ -144,15 +131,43 @@ function init() {
     document.body.appendChild(renderer.domElement);
 }
 
+// determine random position of cube
+function generateRandNum() {
+    var num = Math.random() * 300;
+    var sign = Math.round(Math.random() * 100);
+
+    if (sign % 2 === 0) {
+        num = 0 - num;
+    }
+
+    return num;
+}
+
+// cube
+function createCube() {
+
+    posx = generateRandNum();
+    posy = generateRandNum();
+    geometry = new THREE.BoxBufferGeometry(32, 32, 32);
+    material = new THREE.MeshPhongMaterial({ color: "#C70039" });
+    cube = new THREE.Mesh(geometry, material);
+    cube.position.set(posx, posy, -500);
+    scene.add(cube);
+    return cube;
+}
+
 function animate() {
 
     requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.03;
-    cube.rotation.y += 0.03;
+    for (var i = 0; i < cubeArr.length; i++) {
 
-    // sphere.rotation.x += 0.03;
-    // sphere.rotation.y += 0.03;
+        cubeArr[i].rotation.x += 0.03;
+        cubeArr[i].rotation.y += 0.03;
+    }
+
+    sphere.rotation.x += 0.03;
+    sphere.rotation.y += 0.03;
 
     renderer.render(scene, camera);
 }
