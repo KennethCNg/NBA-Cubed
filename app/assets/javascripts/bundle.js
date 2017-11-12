@@ -107,7 +107,7 @@ function init() {
     // light2 = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(light1);
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 100; i++) {
         cubeArr.push(createCube());
     }
 
@@ -115,7 +115,7 @@ function init() {
     geometry = new THREE.BoxBufferGeometry(32, 32, 32);
     material = new THREE.MeshPhongMaterial({ color: 'red' });
     cube1 = new THREE.Mesh(geometry, material);
-    cube1.position.set(0, 0, -500);
+    cube1.position.set(0, 0, 50);
     scene.add(cube1);
 
     // control viewer perspective //
@@ -146,14 +146,14 @@ function generateRandNum() {
 }
 
 function generateRandDepth() {
-    var num = Math.random() * 1000;
+    var num = Math.random() * 100;
     num = 0 - num;
 
-    if (num > -400) {
-        return generateRandDepth();
-    } else {
-        return num;
-    }
+    // if ( num > -400 ) {
+    //     return generateRandDepth();
+    // } else {
+    return num;
+    // }
 }
 
 // determine random color of cube
@@ -195,7 +195,6 @@ function animate() {
     cube1.rotation.x += 0.03;
     cube1.rotation.y += 0.03;
 
-    console.log(controls);
     controls.update();
 
     renderer.render(scene, camera);
