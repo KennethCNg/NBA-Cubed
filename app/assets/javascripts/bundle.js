@@ -95,7 +95,6 @@ var player = NBA.findPlayer('Carmelo Anthony');
 // NBA.stats.commonTeamRoster({ TeamID: player.teamId }).then(console.log);
 // NBA.stats.assistTracker( )
 
-
 var scene, camera, renderer;
 var geometry, material, mesh, sphere, light, light1, light2, lines, map, cube, box;
 var cube1 = void 0;
@@ -131,8 +130,9 @@ function init() {
 
     // scene.add ( cube1 );
 
+
     // material
-    material = new THREE.MeshBasicMaterial({
+    material = new THREE.MeshLambertMaterial({
         color: 0xffffff,
         vertexColors: THREE.FaceColors
     });
@@ -155,6 +155,7 @@ function init() {
 
     // mesh
     box = new THREE.Mesh(geometry, material);
+    box.position.set(500, 500, 200);
     scene.add(box);
 
     // control viewer perspective //
