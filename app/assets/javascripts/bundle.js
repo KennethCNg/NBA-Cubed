@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.hawksGeometry(), Team.hawksMaterial());
+    cube = new THREE.Mesh(Team.bullsGeometry(), Team.bullsMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54070,6 +54070,85 @@ var celticsGeometry = exports.celticsGeometry = function celticsGeometry() {
     var silver = new THREE.Color("#C0C0C0");
     var black = new THREE.Color("black");
     var colors = [green, silver, black];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// BROOKLYN NETS
+var netsMaterial = exports.netsMaterial = function netsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var netsGeometry = exports.netsGeometry = function netsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var white = new THREE.Color("white");
+    var black = new THREE.Color("black");
+    var colors = [white, black];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+        geometry.faces[4 * i + 4].color = colors[i];
+        geometry.faces[4 * i + 5].color = colors[i];
+    }
+    return geometry;
+};
+
+// CHARLOTTE HORNETS
+var hornetsMaterial = exports.hornetsMaterial = function hornetsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var hornetsGeometry = exports.hornetsGeometry = function hornetsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var purple = new THREE.Color("#201747");
+    var teal = new THREE.Color("#00778B");
+    var gray = new THREE.Color("#888B8D");
+    var colors = [purple, teal, gray];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// CHICAGO BULLS
+var bullsMaterial = exports.bullsMaterial = function bullsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var bullsGeometry = exports.bullsGeometry = function bullsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var red = new THREE.Color("#BA0C2F");
+    var white = new THREE.Color("white");
+    var black = new THREE.Color("black");
+    var colors = [white, red, black];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
