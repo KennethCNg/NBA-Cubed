@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.celticsGeometry(), Team.celticsMaterial());
+    cube = new THREE.Mesh(Team.hawksGeometry(), Team.hawksMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.celticsGeometry = exports.celticsMaterial = exports.knicksGeometry = exports.knicksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54028,8 +54028,8 @@ var geometry = void 0,
     material = void 0;
 // each cube has 6 faces, and each face is split into two triangles
 
-// KNICKS
-var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
+// ATLANTA HAWKS
+var hawksMaterial = exports.hawksMaterial = function hawksMaterial() {
     material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
         vertexColors: THREE.FaceColors
@@ -54038,12 +54038,12 @@ var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
     return material;
 };
 
-var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
+var hawksGeometry = exports.hawksGeometry = function hawksGeometry() {
     geometry = new THREE.BoxGeometry(32, 32, 32);
-    var blue = new THREE.Color("#003DA5");
-    var orange = new THREE.Color("#FF671F");
-    var silver = new THREE.Color("#B1B3B3");
-    var colors = [orange, silver, blue];
+    var red = new THREE.Color("#C8102E");
+    var volt = new THREE.Color("#C4D600");
+    var granite = new THREE.Color("#25282A");
+    var colors = [red, volt, granite];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
@@ -54054,7 +54054,7 @@ var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
     return geometry;
 };
 
-// CELTICS
+// BOSTON CELTICS
 var celticsMaterial = exports.celticsMaterial = function celticsMaterial() {
     material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
@@ -54070,6 +54070,32 @@ var celticsGeometry = exports.celticsGeometry = function celticsGeometry() {
     var silver = new THREE.Color("#C0C0C0");
     var black = new THREE.Color("black");
     var colors = [green, silver, black];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// NEW YORK KNICKS
+var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#003DA5");
+    var orange = new THREE.Color("#FF671F");
+    var silver = new THREE.Color("#B1B3B3");
+    var colors = [orange, silver, blue];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
