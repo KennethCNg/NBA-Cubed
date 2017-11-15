@@ -53884,6 +53884,8 @@ var THREE = _interopRequireWildcard(_three);
 
 var _team_colors = __webpack_require__(51);
 
+var Team = _interopRequireWildcard(_team_colors);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var OrbitControls = __webpack_require__(52)(THREE);
@@ -53921,7 +53923,7 @@ function init() {
     // CAMERA AND LIGHTS //
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
-    camera.position.z = 700;
+    camera.position.z = 500;
 
     // light = new THREE.AmbientLight(0xffffff, 1);
     light = new THREE.PointLight(0xffffff, 1);
@@ -53953,7 +53955,9 @@ function controlCamera() {
     controls.enableRotate = true;
     controls.rotateSpeed = 1.0;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 2.0;
+    controls.autoRotateSpeed = 1.0;
+    controls.minDistance = 0;
+    controls.maxDistance = 1200;
 
     controls.update();
 }
@@ -53977,14 +53981,12 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    var depth = generateRandDepth();
-    geometry = new THREE.BoxBufferGeometry(100, 100, 100);
-    cube = new THREE.Mesh((0, _team_colors.knicksGeometry)(), (0, _team_colors.knicksMaterial)());
+    cube = new THREE.Mesh(Team.celticsGeometry(), Team.celticsMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
-    var posz = generateRandNum();
-    cube.position.set(posx, posy, depth);
+    var posz = generateRandDepth();
+    cube.position.set(posx, posy, posz);
     scene.add(cube);
     return cube;
 }
@@ -53995,8 +53997,8 @@ function animate() {
     requestAnimationFrame(animate);
     for (var i = 0; i < cubeArr.length; i++) {
 
-        cubeArr[i].rotation.x += 0.03;
-        cubeArr[i].rotation.y += 0.03;
+        cubeArr[i].rotation.x += 0.015;
+        cubeArr[i].rotation.y += 0.015;
     }
 
     controls.update();
@@ -54014,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = undefined;
+exports.celticsGeometry = exports.celticsMaterial = exports.knicksGeometry = exports.knicksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54022,8 +54024,11 @@ var THREE = _interopRequireWildcard(_three);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var geometry, material;
+var geometry = void 0,
+    material = void 0;
+// each cube has 6 faces, and each face is split into two triangles
 
+// KNICKS
 var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
     material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
@@ -54035,10 +54040,10 @@ var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
 
 var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
     geometry = new THREE.BoxGeometry(32, 32, 32);
-    var orange = new THREE.Color("orange");
-    var gray = new THREE.Color("gray");
-    var blue = new THREE.Color("blue");
-    var colors = [orange, gray, blue];
+    var blue = new THREE.Color("#003DA5");
+    var orange = new THREE.Color("#FF671F");
+    var silver = new THREE.Color("#B1B3B3");
+    var colors = [orange, silver, blue];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
@@ -54046,7 +54051,32 @@ var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
         geometry.faces[4 * i + 2].color = colors[i];
         geometry.faces[4 * i + 3].color = colors[i];
     }
+    return geometry;
+};
 
+// CELTICS
+var celticsMaterial = exports.celticsMaterial = function celticsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var celticsGeometry = exports.celticsGeometry = function celticsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var green = new THREE.Color("#007A33");
+    var silver = new THREE.Color("#C0C0C0");
+    var black = new THREE.Color("black");
+    var colors = [green, silver, black];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
     return geometry;
 };
 
