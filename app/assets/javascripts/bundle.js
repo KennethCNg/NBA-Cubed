@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.pelicansGeometry(), Team.pelicansMaterial());
+    cube = new THREE.Mesh(Team.wizardsGeometry(), Team.wizardsMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.wizardsGeometry = exports.wizardsMaterial = exports.jazzGeometry = exports.jazzMaterial = exports.raptorsGeometry = exports.raptorsMaterial = exports.spursGeometry = exports.spursMaterial = exports.kingsGeometry = exports.kingsMaterial = exports.blazersGeometry = exports.blazersMaterial = exports.sunsGeometry = exports.sunsMaterial = exports.sixersGeometry = exports.sixersMaterial = exports.magicGeometry = exports.magicMaterial = exports.thunderGeometry = exports.thunderMaterial = exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54513,6 +54513,266 @@ var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
     var orange = new THREE.Color("#FF671F");
     var silver = new THREE.Color("#B1B3B3");
     var colors = [orange, silver, blue];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// OKLAHOMA CITY THUNDER
+var thunderMaterial = exports.thunderMaterial = function thunderMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var thunderGeometry = exports.thunderGeometry = function thunderGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#007DC3");
+    var orange = new THREE.Color("#F05133");
+    var yellow = new THREE.Color("#FDBB30");
+    var colors = [blue, orange, yellow];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// ORLANDO MAGIC
+var magicMaterial = exports.magicMaterial = function magicMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var magicGeometry = exports.magicGeometry = function magicGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#007DC5");
+    var silver = new THREE.Color("#C4CED3");
+    var white = new THREE.Color("white");
+    var colors = [blue, silver, white];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// PHILADELPHIA SIXERS
+var sixersMaterial = exports.sixersMaterial = function sixersMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var sixersGeometry = exports.sixersGeometry = function sixersGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#006BB6");
+    var red = new THREE.Color("#ED174C");
+    var white = new THREE.Color("white");
+    var colors = [blue, red, white];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// PHOENIX SUNS
+var sunsMaterial = exports.sunsMaterial = function sunsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var sunsGeometry = exports.sunsGeometry = function sunsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var orange = new THREE.Color("#E56020");
+    var purple = new THREE.Color("#1D1160");
+    var gray = new THREE.Color("#63717A");
+    var colors = [orange, purple, gray];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// PORTLAND TRAILBLAZERS
+var blazersMaterial = exports.blazersMaterial = function blazersMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var blazersGeometry = exports.blazersGeometry = function blazersGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var red = new THREE.Color("#F0163A");
+    var gray = new THREE.Color("#B6BFBF");
+    var white = new THREE.Color("white");
+    var colors = [red, white, gray];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// SACRAMENTO KINGS
+var kingsMaterial = exports.kingsMaterial = function kingsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var kingsGeometry = exports.kingsGeometry = function kingsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var purple = new THREE.Color("#724C9F");
+    var gray = new THREE.Color("#8E9090");
+    var white = new THREE.Color("white");
+    var colors = [purple, white, gray];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// SAN ANTONIO SPURS
+var spursMaterial = exports.spursMaterial = function spursMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var spursGeometry = exports.spursGeometry = function spursGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var black = new THREE.Color("black");
+    var gray = new THREE.Color("#B6BFBF");
+    var white = new THREE.Color("white");
+    var colors = [black, white, gray];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// TORONTO RAPTORS
+var raptorsMaterial = exports.raptorsMaterial = function raptorsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var raptorsGeometry = exports.raptorsGeometry = function raptorsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var red = new THREE.Color("#CE1141");
+    var purple = new THREE.Color("#9400D3");
+    var silver = new THREE.Color("#C4CED3");
+    var colors = [red, silver, purple];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// UTAH JAZZ
+var jazzMaterial = exports.jazzMaterial = function jazzMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var jazzGeometry = exports.jazzGeometry = function jazzGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#002B5C");
+    var yellow = new THREE.Color("#F9A01B");
+    var green = new THREE.Color("#00471B");
+    var colors = [blue, yellow, green];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// WASHINGTON WIZARDS
+var wizardsMaterial = exports.wizardsMaterial = function wizardsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var wizardsGeometry = exports.wizardsGeometry = function wizardsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#0C2340");
+    var red = new THREE.Color("#C8102E");
+    var silver = new THREE.Color("#8D9093");
+    var colors = [blue, silver, red];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
