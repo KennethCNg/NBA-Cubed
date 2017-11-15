@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.lakersGeometry(), Team.lakersMaterial());
+    cube = new THREE.Mesh(Team.pelicansGeometry(), Team.pelicansMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54357,6 +54357,136 @@ var lakersGeometry = exports.lakersGeometry = function lakersGeometry() {
     var gold = new THREE.Color("#FFC72C");
     var white = new THREE.Color("white");
     var colors = [purple, gold, white];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// MEMPHIS GRIZZLES
+var grizzlesMaterial = exports.grizzlesMaterial = function grizzlesMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var grizzlesGeometry = exports.grizzlesGeometry = function grizzlesGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var darkBlue = new THREE.Color("#23375B");
+    var blue = new THREE.Color("#6189B9");
+    var lightBlue = new THREE.Color("#BBD1E4");
+    var colors = [darkBlue, blue, lightBlue];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// MIAMI HEAT
+var heatMaterial = exports.heatMaterial = function heatMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var heatGeometry = exports.heatGeometry = function heatGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var red = new THREE.Color("#862633");
+    var yellow = new THREE.Color("#FFA300");
+    var white = new THREE.Color("white");
+    var colors = [red, yellow, white];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// MILWAUKEE BUCKS
+var bucksMaterial = exports.bucksMaterial = function bucksMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var bucksGeometry = exports.bucksGeometry = function bucksGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var green = new THREE.Color("#2C5234");
+    var cream = new THREE.Color("#DDCBA4");
+    var blue = new THREE.Color("#0057B8");
+    var colors = [green, cream, blue];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// MILWAUKEE TIMBERWOLVES
+var twolvesMaterial = exports.twolvesMaterial = function twolvesMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var twolvesGeometry = exports.twolvesGeometry = function twolvesGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var darkBlue = new THREE.Color("#002B5C");
+    var gray = new THREE.Color("#C6CFD4");
+    var blue = new THREE.Color("#005083");
+    var colors = [darkBlue, gray, blue];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// NEW ORLEANS PELICANS
+var pelicansMaterial = exports.pelicansMaterial = function pelicansMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var pelicansGeometry = exports.pelicansGeometry = function pelicansGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#002B5C");
+    var red = new THREE.Color("#E31937");
+    var gold = new THREE.Color("#B4975A");
+    var colors = [blue, red, gold];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
