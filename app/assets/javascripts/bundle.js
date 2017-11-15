@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.rocketsGeometry(), Team.rocketsMaterial());
+    cube = new THREE.Mesh(Team.lakersGeometry(), Team.lakersMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54289,7 +54289,7 @@ var warriorsGeometry = exports.warriorsGeometry = function warriorsGeometry() {
     return geometry;
 };
 
-// HOUSTON ROCKETS
+// INDIANA PACERS
 var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
     material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
@@ -54301,10 +54301,62 @@ var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
 
 var rocketsGeometry = exports.rocketsGeometry = function rocketsGeometry() {
     geometry = new THREE.BoxGeometry(32, 32, 32);
-    var red = new THREE.Color("#BA0C2F");
-    var mustard = new THREE.Color("#FDB927");
-    var silver = new THREE.Color("#8D9093");
-    var colors = [silver, red, mustard];
+    var blue = new THREE.Color("#041E42");
+    var gold = new THREE.Color("#FFB81C");
+    var silver = new THREE.Color("#B1B3B3");
+    var colors = [silver, blue, gold];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// LOS ANGELES CLIPPERS
+var clippersMaterial = exports.clippersMaterial = function clippersMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var clippersGeometry = exports.clippersGeometry = function clippersGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#003DA5");
+    var red = new THREE.Color("#D50032");
+    var gray = new THREE.Color("#B1B3B3");
+    var colors = [gray, blue, red];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// LOS ANGELES LAKERS
+var lakersMaterial = exports.lakersMaterial = function lakersMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var lakersGeometry = exports.lakersGeometry = function lakersGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var purple = new THREE.Color("#702F8A");
+    var gold = new THREE.Color("#FFC72C");
+    var white = new THREE.Color("white");
+    var colors = [purple, gold, white];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
