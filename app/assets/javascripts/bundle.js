@@ -53925,8 +53925,8 @@ function init() {
     camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
     camera.position.z = 500;
 
-    // light = new THREE.AmbientLight(0xffffff, 1);
-    light = new THREE.PointLight(0xffffff, 1);
+    light = new THREE.AmbientLight(0xffffff, 1);
+    // light = new THREE.PointLight(0xffffff, 5);
     // light = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(light);
 
@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.bullsGeometry(), Team.bullsMaterial());
+    cube = new THREE.Mesh(Team.mavsGeometry(), Team.mavsMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54175,6 +54175,58 @@ var cavsGeometry = exports.cavsGeometry = function cavsGeometry() {
     var gold = new THREE.Color("#FFB81C");
     var navy = new THREE.Color("#041E42");
     var colors = [wine, gold, navy];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// DALLAS MAVERICKS
+var mavsMaterial = exports.mavsMaterial = function mavsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var mavsGeometry = exports.mavsGeometry = function mavsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#0050B5");
+    var silver = new THREE.Color("#8D9093");
+    var navy = new THREE.Color("#0C2340");
+    var colors = [blue, silver, navy];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// DENVER NUGGETS
+var nuggetsMaterial = exports.nuggetsMaterial = function nuggetsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var nuggetsGeometry = exports.nuggetsGeometry = function nuggetsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var lightBlue = new THREE.Color("#418FDE");
+    var gold = new THREE.Color("#FFC72C");
+    var navy = new THREE.Color("#041E42");
+    var colors = [gold, lightBlue, navy];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
