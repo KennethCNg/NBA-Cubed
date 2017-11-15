@@ -53981,7 +53981,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.mavsGeometry(), Team.mavsMaterial());
+    cube = new THREE.Mesh(Team.rocketsGeometry(), Team.rocketsMaterial());
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54227,6 +54227,84 @@ var nuggetsGeometry = exports.nuggetsGeometry = function nuggetsGeometry() {
     var gold = new THREE.Color("#FFC72C");
     var navy = new THREE.Color("#041E42");
     var colors = [gold, lightBlue, navy];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// DETROIT PISTONS 
+var pistonsMaterial = exports.pistonsMaterial = function pistonsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var pistonsGeometry = exports.pistonsGeometry = function pistonsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#003DA5");
+    var red = new THREE.Color("#D50032");
+    var white = new THREE.Color("white");
+    var colors = [red, blue, white];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// GOLDEN STATE WARRIORS
+var warriorsMaterial = exports.warriorsMaterial = function warriorsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var warriorsGeometry = exports.warriorsGeometry = function warriorsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var blue = new THREE.Color("#003DA5");
+    var gold = new THREE.Color("#FFC72D");
+    var silver = new THREE.Color("#8D9093");
+    var colors = [gold, blue, silver];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// HOUSTON ROCKETS
+var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var rocketsGeometry = exports.rocketsGeometry = function rocketsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var red = new THREE.Color("#BA0C2F");
+    var mustard = new THREE.Color("#FDB927");
+    var silver = new THREE.Color("#8D9093");
+    var colors = [silver, red, mustard];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
