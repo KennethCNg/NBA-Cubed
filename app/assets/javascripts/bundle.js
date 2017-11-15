@@ -54016,7 +54016,7 @@ function animate() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.knicksGeometry = exports.knicksMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.knicksGeometry = exports.knicksMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(25);
 
@@ -54149,6 +54149,32 @@ var bullsGeometry = exports.bullsGeometry = function bullsGeometry() {
     var white = new THREE.Color("white");
     var black = new THREE.Color("black");
     var colors = [white, red, black];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// CLEVELAND CAVELIERS
+var cavsMaterial = exports.cavsMaterial = function cavsMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var cavsGeometry = exports.cavsGeometry = function cavsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var wine = new THREE.Color("#6F263D");
+    var gold = new THREE.Color("#FFB81C");
+    var navy = new THREE.Color("#041E42");
+    var colors = [wine, gold, navy];
 
     for (var i = 0; i < 3; i++) {
         geometry.faces[4 * i].color = colors[i];
