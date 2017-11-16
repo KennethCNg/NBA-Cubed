@@ -69,102 +69,36 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(console) {
+
 
 var _three = __webpack_require__(56);
 
 var THREE = _interopRequireWildcard(_three);
 
-var _team_colors = __webpack_require__(111);
-
-var Team = _interopRequireWildcard(_team_colors);
-
 var _api_util = __webpack_require__(357);
 
 var API = _interopRequireWildcard(_api_util);
+
+var _player_cube = __webpack_require__(359);
+
+var _player_cube2 = _interopRequireDefault(_player_cube);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var OrbitControls = __webpack_require__(112)(THREE);
 
-var teamMaterial = {
-    "Hawks": Team.hawksMaterial(),
-    "Celtics": Team.celticsMaterial(),
-    "Nets": Team.netsMaterial(),
-    "Hornets": Team.hornetsMaterial(),
-    "Bulls": Team.bullsMaterial(),
-    "Cavaliers": Team.cavsMaterial(),
-    "Mavericks": Team.mavsMaterial(),
-    "Nuggets": Team.nuggetsMaterial(),
-    "Pistons": Team.pistonsMaterial(),
-    "Warriors": Team.warriorsMaterial(),
-    "Rockets": Team.rocketsMaterial(),
-    "Pacers": Team.pacersMaterial(),
-    "Clippers": Team.clippersMaterial(),
-    "Lakers": Team.lakersMaterial(),
-    "Grizzles": Team.grizzlesMaterial(),
-    "Heat": Team.heatMaterial(),
-    "Bucks": Team.bucksMaterial(),
-    "Timberwolves": Team.twolvesMaterial(),
-    "Pelicans": Team.pelicansMaterial(),
-    "Knicks": Team.knicksMaterial(),
-    "Thunder": Team.thunderMaterial(),
-    "Magic": Team.magicMaterial(),
-    "Sixers": Team.sixersMaterial(),
-    "Suns": Team.sunsMaterial(),
-    "Trailblazers": Team.blazersMaterial(),
-    "Kings": Team.kingsMaterial(),
-    "Spurs": Team.spursMaterial(),
-    "Raptors": Team.raptorsMaterial(),
-    "Jazz": Team.jazzMaterial(),
-    "Wizards": Team.wizardsMaterial()
-};
-
-var teamGeometry = {
-    "Hawks": Team.hawksGeometry(),
-    "Celtics": Team.celticsGeometry(),
-    "Nets": Team.netsGeometry(),
-    "Hornets": Team.hornetsGeometry(),
-    "Bulls": Team.bullsGeometry(),
-    "Cavaliers": Team.cavsGeometry(),
-    "Mavericks": Team.mavsGeometry(),
-    "Nuggets": Team.nuggetsGeometry(),
-    "Pistons": Team.pistonsGeometry(),
-    "Warriors": Team.warriorsGeometry(),
-    "Rockets": Team.rocketsGeometry(),
-    "Pacers": Team.pacersGeometry(),
-    "Clippers": Team.clippersGeometry(),
-    "Lakers": Team.lakersGeometry(),
-    "Grizzles": Team.grizzlesGeometry(),
-    "Heat": Team.heatGeometry(),
-    "Bucks": Team.bucksGeometry(),
-    "Timberwolves": Team.twolvesGeometry(),
-    "Pelicans": Team.pelicansGeometry(),
-    "Knicks": Team.knicksGeometry(),
-    "Thunder": Team.thunderGeometry(),
-    "Magic": Team.magicGeometry(),
-    "Sixers": Team.sixersGeometry(),
-    "Suns": Team.sunsGeometry(),
-    "Trailblazers": Team.blazersGeometry(),
-    "Kings": Team.kingsGeometry(),
-    "Spurs": Team.spursGeometry(),
-    "Raptors": Team.raptorsGeometry(),
-    "Jazz": Team.jazzGeometry(),
-    "Wizards": Team.wizardsGeometry()
-};
-
 var scene = void 0,
     camera = void 0,
-    renderer = void 0;
-var geometry = void 0,
+    renderer = void 0,
+    geometry = void 0,
     material = void 0,
     mesh = void 0,
     sphere = void 0,
     light = void 0,
     lines = void 0,
     map = void 0,
-    cube = void 0,
-    box = void 0,
     controls = void 0;
 var data = API.fetchPlayers();
 var players = data.responseJSON.cumulativeplayerstats.playerstatsentry;
@@ -174,105 +108,98 @@ var teamNames = [];
 init();
 animate();
 
+// controls everything
 function init() {
-
-    // CAMERA AND LIGHTS //
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
-    camera.position.z = 500;
-
-    light = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(light);
-
-    // Grabs the team names from API
-    function grabTeamNames() {
-        var len = players.length;
-
-        for (var i = 0; i < len; i++) {
-            teamNames.push(players[i].team.Name);
-        }
-        return teamNames;
-    }
     grabTeamNames();
 
-    // Creates cubes and stores in array 
-    function createCubes() {
-        console.log(teamNames);
-        for (var i = 0; i < teamNames.length; i++) {
-            cubeArr.push(createCube(i));
-        }
-        return cubeArr;
-    }
-    createCubes();
+    addScene();
+    addCameraAndControls();
+    addLight();
+    grabTeamNames();
+    makeCubes();
+}
 
-    // CONTROL VIEWER PERSPECTIVE //
+/////////////////////  HELPER FUNCTIONS ////////////////////////
+
+// Add scene
+function addScene() {
+    scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor("white", 1);
 
     document.body.appendChild(renderer.domElement);
-    controlCamera();
 }
 
-/////////////////////  HELPER FUNCTION ////////////////////////
+// Add light to the scene
+function addLight() {
+    light = new THREE.AmbientLight(0xffffff, 0.9);
+    // light = new THREE.DirectionalLight( 0xffffff, 1 );
+    // light = new THREE.PointLight("white", 3, 1000);
+    // light.position.set( 400, 400, 400 );
+    // scene.add(light);
+    // scene.add(new THREE.PointLightHelper(light, 3));
+
+    scene.add(light);
+}
 
 // Camera controls from OrbitControls library
-function controlCamera() {
+function addCameraAndControls() {
+    // camera
+    camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
+    camera.position.z = 500;
+
+    // controls
     controls = new OrbitControls(camera);
     controls.enabled = true;
     controls.target = new THREE.Vector3();
     controls.enableRotate = true;
     controls.rotateSpeed = 1.0;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.0;
+    controls.autoRotateSpeed = 0.5;
     controls.minDistance = 0;
-    controls.maxDistance = 1200;
+    controls.maxDistance = 1000;
 
     controls.update();
 }
 
-// determine random position of cube
-function generateRandNum() {
-    var num = Math.random() * 600;
-    var sign = Math.round(Math.random() * 100);
+// Grab team names from API
+function grabTeamNames() {
+    var len = players.length;
 
-    if (sign % 2 === 0) {
-        num = 0 - num;
+    for (var i = 0; i < len; i++) {
+        teamNames.push(players[i].team.Name);
     }
-    return num;
+    return teamNames;
 }
 
-// generate random z-plane
-function generateRandDepth() {
-    var num = Math.random() * 800;
-    return num;
+function makeCubes() {
+    for (var i = 0; i < teamNames.length; i++) {
+        var cube = new _player_cube2.default(teamNames[i]);
+        // set position within the scene //
+        cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
+        cubeArr.push(cube.mesh);
+        scene.add(cube.mesh);
+    }
 }
 
-// create singular cube
-function createCube(i) {
-    cube = new THREE.Mesh(teamGeometry['' + teamNames[i]], teamMaterial['' + teamNames[i]]);
-    var posx = generateRandNum();
-    var posy = generateRandNum();
-    var posz = generateRandDepth();
-    cube.position.set(posx, posy, posz);
-    scene.add(cube);
-    return cube;
+function rotateCubes() {
+    // iterates through cubeArr and rotates them
+    for (var i = 0; i < cubeArr.length; i++) {
+        cubeArr[i].rotation.x += 0.015;
+        cubeArr[i].rotation.y += 0.015;
+    }
 }
 
 // animates
 function animate() {
     requestAnimationFrame(animate);
 
-    // iterates through cubeArr and rotates them
-    for (var i = 0; i < cubeArr.length; i++) {
-        cubeArr[i].rotation.x += 0.015;
-        cubeArr[i].rotation.y += 0.015;
-    }
+    rotateCubes();
 
     controls.update();
     renderer.render(scene, camera);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 
@@ -2871,6 +2798,147 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
     }
   });
 };
+
+/***/ }),
+
+/***/ 359:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _team_colors = __webpack_require__(111);
+
+var Team = _interopRequireWildcard(_team_colors);
+
+var _three = __webpack_require__(56);
+
+var THREE = _interopRequireWildcard(_three);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var teamMaterial = {
+    "Hawks": Team.hawksMaterial(),
+    "Celtics": Team.celticsMaterial(),
+    "Nets": Team.netsMaterial(),
+    "Hornets": Team.hornetsMaterial(),
+    "Bulls": Team.bullsMaterial(),
+    "Cavaliers": Team.cavsMaterial(),
+    "Mavericks": Team.mavsMaterial(),
+    "Nuggets": Team.nuggetsMaterial(),
+    "Pistons": Team.pistonsMaterial(),
+    "Warriors": Team.warriorsMaterial(),
+    "Rockets": Team.rocketsMaterial(),
+    "Pacers": Team.pacersMaterial(),
+    "Clippers": Team.clippersMaterial(),
+    "Lakers": Team.lakersMaterial(),
+    "Grizzles": Team.grizzlesMaterial(),
+    "Heat": Team.heatMaterial(),
+    "Bucks": Team.bucksMaterial(),
+    "Timberwolves": Team.twolvesMaterial(),
+    "Pelicans": Team.pelicansMaterial(),
+    "Knicks": Team.knicksMaterial(),
+    "Thunder": Team.thunderMaterial(),
+    "Magic": Team.magicMaterial(),
+    "Sixers": Team.sixersMaterial(),
+    "Suns": Team.sunsMaterial(),
+    "Trailblazers": Team.blazersMaterial(),
+    "Kings": Team.kingsMaterial(),
+    "Spurs": Team.spursMaterial(),
+    "Raptors": Team.raptorsMaterial(),
+    "Jazz": Team.jazzMaterial(),
+    "Wizards": Team.wizardsMaterial()
+};
+
+var teamGeometry = {
+    "Hawks": Team.hawksGeometry(),
+    "Celtics": Team.celticsGeometry(),
+    "Nets": Team.netsGeometry(),
+    "Hornets": Team.hornetsGeometry(),
+    "Bulls": Team.bullsGeometry(),
+    "Cavaliers": Team.cavsGeometry(),
+    "Mavericks": Team.mavsGeometry(),
+    "Nuggets": Team.nuggetsGeometry(),
+    "Pistons": Team.pistonsGeometry(),
+    "Warriors": Team.warriorsGeometry(),
+    "Rockets": Team.rocketsGeometry(),
+    "Pacers": Team.pacersGeometry(),
+    "Clippers": Team.clippersGeometry(),
+    "Lakers": Team.lakersGeometry(),
+    "Grizzles": Team.grizzlesGeometry(),
+    "Heat": Team.heatGeometry(),
+    "Bucks": Team.bucksGeometry(),
+    "Timberwolves": Team.twolvesGeometry(),
+    "Pelicans": Team.pelicansGeometry(),
+    "Knicks": Team.knicksGeometry(),
+    "Thunder": Team.thunderGeometry(),
+    "Magic": Team.magicGeometry(),
+    "Sixers": Team.sixersGeometry(),
+    "Suns": Team.sunsGeometry(),
+    "Trailblazers": Team.blazersGeometry(),
+    "Kings": Team.kingsGeometry(),
+    "Spurs": Team.spursGeometry(),
+    "Raptors": Team.raptorsGeometry(),
+    "Jazz": Team.jazzGeometry(),
+    "Wizards": Team.wizardsGeometry()
+};
+
+var playerCube = function () {
+    function playerCube(team) {
+        _classCallCheck(this, playerCube);
+
+        this.xPos = this.generateRandNum();
+        this.yPos = this.generateRandNum();
+        this.zPos = this.generateRandDepth();
+        this.mesh = this.createMesh(team);
+    }
+
+    // determine random position of cube
+
+
+    _createClass(playerCube, [{
+        key: 'generateRandNum',
+        value: function generateRandNum() {
+            var num = Math.random() * 600;
+            var sign = Math.round(Math.random() * 100);
+
+            if (sign % 2 === 0) {
+                num = 0 - num;
+            }
+            return num;
+        }
+
+        // generate random z-plane
+
+    }, {
+        key: 'generateRandDepth',
+        value: function generateRandDepth() {
+            var num = Math.random() * 800;
+            return num;
+        }
+
+        // create singular cube
+
+    }, {
+        key: 'createMesh',
+        value: function createMesh(team) {
+            var mesh = new THREE.Mesh(teamGeometry['' + team], teamMaterial['' + team]);
+            return mesh;
+        }
+    }]);
+
+    return playerCube;
+}();
+
+exports.default = playerCube;
 
 /***/ }),
 
