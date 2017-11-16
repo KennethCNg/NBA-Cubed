@@ -85,11 +85,83 @@ var API = _interopRequireWildcard(_api_util);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+var teamMaterial = {
+    "Hawks": Team.hawksMaterial,
+    "Celtics": Team.celticsMaterial,
+    "Nets": Team.netsMaterial,
+    "Hornets": Team.hornetsMaterial,
+    "Bulls": Team.bullsMaterial,
+    "Cavaliers": Team.cavsMaterial,
+    "Mavericks": Team.mavsMaterial,
+    "Nuggets": Team.nuggetsMaterial,
+    "Pistons": Team.pistonsMaterial,
+    "Warriors": Team.warriorsMaterial,
+    "Rockets": Team.rocketsMaterial,
+    "Pacers": Team.pacersMaterial,
+    "Clippers": Team.clippersMaterial,
+    "Lakers": Team.lakersMaterial,
+    "Grizzles": Team.grizzlesMaterial,
+    "Heat": Team.heatMaterial,
+    "Bucks": Team.bucksMaterial,
+    "Timberwolves": Team.twolvesMaterial,
+    "Pelicans": Team.pelicansMaterial,
+    "Knicks": Team.knicksMaterial,
+    "Thunder": Team.thunderMaterial(),
+    "Magic": Team.magicMaterial,
+    "Sixers": Team.sixersMaterial,
+    "Suns": Team.sunsMaterial,
+    "Trailblazers": Team.blazersMaterial,
+    "Kings": Team.kingsMaterial,
+    "Spurs": Team.spursMaterial,
+    "Raptors": Team.raptorsMaterial,
+    "Jazz": Team.jazzMaterial,
+    "Wizards": Team.wizardsMaterial
+};
+
+var teamGeometry = {
+    "Hawks": Team.hawksGeometry,
+    "Celtics": Team.celticsGeometry,
+    "Nets": Team.netsGeometry,
+    "Hornets": Team.hornetsGeometry,
+    "Bulls": Team.bullsGeometry,
+    "Cavaliers": Team.cavsGeometry,
+    "Mavericks": Team.mavsGeometry,
+    "Nuggets": Team.nuggetsGeometry,
+    "Pistons": Team.pistonsGeometry,
+    "Warriors": Team.warriorsGeometry,
+    "Rockets": Team.rocketsGeometry,
+    "Pacers": Team.pacersGeometry,
+    "Clippers": Team.clippersGeometry,
+    "Lakers": Team.lakersGeometry,
+    "Grizzles": Team.grizzlesGeometry,
+    "Heat": Team.heatGeometry,
+    "Bucks": Team.bucksGeometry,
+    "Timberwolves": Team.twolvesGeometry,
+    "Pelicans": Team.pelicansGeometry,
+    "Knicks": Team.knicksGeometry,
+    "Thunder": Team.thunderGeometry(),
+    "Magic": Team.magicGeometry,
+    "Sixers": Team.sixersGeometry,
+    "Suns": Team.sunsGeometry,
+    "Trailblazers": Team.blazersGeometry,
+    "Kings": Team.kingsGeometry,
+    "Spurs": Team.spursGeometry,
+    "Raptors": Team.raptorsGeometry,
+    "Jazz": Team.jazzGeometry,
+    "Wizards": Team.wizardsGeometry
+};
+
+var data = API.fetchPlayers();
+
+var player = data.responseJSON.cumulativeplayerstats.playerstatsentry[0];
+var name = player.team.Name;
+console.log(teamGeometry['' + name]);
+
+// console.log(player.player.LastName);
+// console.log(player.player.FirstName);
+
+
 var OrbitControls = __webpack_require__(112)(THREE);
-
-var data = API.fetchCurry();
-
-console.log(data);
 
 var scene, camera, renderer;
 var geometry, material, mesh, sphere, light, lines, map, cube, box;
@@ -107,12 +179,7 @@ function init() {
     camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
     camera.position.z = 500;
 
-    light = new THREE.AmbientLight(0xffffff, 0.7);
-    // light = new THREE.PointLight(0xffffff, 1);
-    // light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1.5);
-    // light = new THREE.DirectionalLight(0xffffff, 1);
-    // light = new THREE.SpotLight( 0xffffff );
-    // light.position.set( 100, 1000, 100 );
+    light = new THREE.AmbientLight(0xffffff, 1);
     scene.add(light);
 
     function createCubes() {
@@ -121,7 +188,6 @@ function init() {
         }
         return cubeArr;
     }
-
     createCubes();
 
     // control viewer perspective //
@@ -166,7 +232,7 @@ function generateRandDepth() {
 
 // create singular cube
 function createCube() {
-    cube = new THREE.Mesh(Team.wizardsGeometry(), Team.wizardsMaterial());
+    cube = new THREE.Mesh(teamGeometry['' + name], teamMaterial['' + name]);
 
     var posx = generateRandNum();
     var posy = generateRandNum();
@@ -175,7 +241,6 @@ function createCube() {
     scene.add(cube);
     return cube;
 }
-
 // animates
 function animate() {
 
@@ -255,7 +320,7 @@ function now() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.wizardsGeometry = exports.wizardsMaterial = exports.jazzGeometry = exports.jazzMaterial = exports.raptorsGeometry = exports.raptorsMaterial = exports.spursGeometry = exports.spursMaterial = exports.kingsGeometry = exports.kingsMaterial = exports.blazersGeometry = exports.blazersMaterial = exports.sunsGeometry = exports.sunsMaterial = exports.sixersGeometry = exports.sixersMaterial = exports.magicGeometry = exports.magicMaterial = exports.thunderGeometry = exports.thunderMaterial = exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.wizardsGeometry = exports.wizardsMaterial = exports.jazzGeometry = exports.jazzMaterial = exports.raptorsGeometry = exports.raptorsMaterial = exports.spursGeometry = exports.spursMaterial = exports.kingsGeometry = exports.kingsMaterial = exports.blazersGeometry = exports.blazersMaterial = exports.sunsGeometry = exports.sunsMaterial = exports.sixersGeometry = exports.sixersMaterial = exports.magicGeometry = exports.magicMaterial = exports.thunderGeometry = exports.thunderMaterial = exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.pacersGeometry = exports.pacersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
 var _three = __webpack_require__(56);
 
@@ -266,6 +331,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var geometry = void 0,
     material = void 0;
 // each cube has 6 faces, and each face is split diagonally
+
 
 // ATLANTA HAWKS
 var hawksMaterial = exports.hawksMaterial = function hawksMaterial() {
@@ -528,7 +594,7 @@ var warriorsGeometry = exports.warriorsGeometry = function warriorsGeometry() {
     return geometry;
 };
 
-// INDIANA PACERS
+// HOUSTON ROCKETS
 var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
     material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
@@ -539,6 +605,32 @@ var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
 };
 
 var rocketsGeometry = exports.rocketsGeometry = function rocketsGeometry() {
+    geometry = new THREE.BoxGeometry(32, 32, 32);
+    var red = new THREE.Color("#BA0C2F");
+    var silver = new THREE.Color("#8D9093");
+    var mustard = new THREE.Color("#FDB927");
+    var colors = [red, silver, mustard];
+
+    for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        geometry.faces[4 * i + 3].color = colors[i];
+    }
+    return geometry;
+};
+
+// INDIANA PACERS
+var pacersMaterial = exports.pacersMaterial = function pacersMaterial() {
+    material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+    });
+
+    return material;
+};
+
+var pacersGeometry = exports.pacersGeometry = function pacersGeometry() {
     geometry = new THREE.BoxGeometry(32, 32, 32);
     var blue = new THREE.Color("#041E42");
     var gold = new THREE.Color("#FFB81C");
@@ -2751,7 +2843,7 @@ process.umask = function() { return 0; };
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var fetchCurry = exports.fetchCurry = function fetchCurry() {
+var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
   return $.ajax({
     type: "GET",
     url: "https://api.mysportsfeeds.com/v1.1/pull/nba/2016-2017-regular/cumulative_player_stats.json?playerstats=2PM,3PM,FTM",
