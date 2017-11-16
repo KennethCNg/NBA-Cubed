@@ -85,6 +85,8 @@ var API = _interopRequireWildcard(_api_util);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+var OrbitControls = __webpack_require__(112)(THREE);
+
 var teamMaterial = {
     "Hawks": Team.hawksMaterial(),
     "Celtics": Team.celticsMaterial(),
@@ -151,19 +153,23 @@ var teamGeometry = {
     "Wizards": Team.wizardsGeometry()
 };
 
+var scene = void 0,
+    camera = void 0,
+    renderer = void 0;
+var geometry = void 0,
+    material = void 0,
+    mesh = void 0,
+    sphere = void 0,
+    light = void 0,
+    lines = void 0,
+    map = void 0,
+    cube = void 0,
+    box = void 0,
+    controls = void 0;
 var data = API.fetchPlayers();
-
 var players = data.responseJSON.cumulativeplayerstats.playerstatsentry;
-var name = players[0].team.Name;
-var teamNames = [];
-
-var OrbitControls = __webpack_require__(112)(THREE);
-
-var scene, camera, renderer;
-var geometry, material, mesh, sphere, light, lines, map, cube, box;
-var cube1 = void 0;
-var controls = void 0;
 var cubeArr = [];
+var teamNames = [];
 
 init();
 animate();
@@ -178,7 +184,7 @@ function init() {
     light = new THREE.AmbientLight(0xffffff, 1);
     scene.add(light);
 
-    // grabs the team names from API
+    // Grabs the team names from API
     function grabTeamNames() {
         var len = players.length;
 
@@ -187,9 +193,9 @@ function init() {
         }
         return teamNames;
     }
-
     grabTeamNames();
 
+    // Creates cubes and stores in array 
     function createCubes() {
         console.log(teamNames);
         for (var i = 0; i < teamNames.length; i++) {
@@ -199,7 +205,7 @@ function init() {
     }
     createCubes();
 
-    // control viewer perspective //
+    // CONTROL VIEWER PERSPECTIVE //
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor("white", 1);
@@ -208,6 +214,9 @@ function init() {
     controlCamera();
 }
 
+/////////////////////  HELPER FUNCTION ////////////////////////
+
+// Camera controls from OrbitControls library
 function controlCamera() {
     controls = new OrbitControls(camera);
     controls.enabled = true;
@@ -242,7 +251,6 @@ function generateRandDepth() {
 // create singular cube
 function createCube(i) {
     cube = new THREE.Mesh(teamGeometry['' + teamNames[i]], teamMaterial['' + teamNames[i]]);
-    // cube = new THREE.Mesh( teamGeometry[`${name}`], teamMaterial[`${name}`] );
     var posx = generateRandNum();
     var posy = generateRandNum();
     var posz = generateRandDepth();
@@ -253,12 +261,14 @@ function createCube(i) {
 
 // animates
 function animate() {
-
     requestAnimationFrame(animate);
+
+    // iterates through cubeArr and rotates them
     for (var i = 0; i < cubeArr.length; i++) {
         cubeArr[i].rotation.x += 0.015;
         cubeArr[i].rotation.y += 0.015;
     }
+
     controls.update();
     renderer.render(scene, camera);
 }
