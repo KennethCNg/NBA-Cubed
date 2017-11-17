@@ -69,7 +69,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(console) {
+
 
 var _three = __webpack_require__(56);
 
@@ -154,7 +154,6 @@ function grabStats() {
         playerStatArr.push(playerObj);
     }
 
-    console.log(playerStatArr);
     return playerStatArr;
 }
 
@@ -202,7 +201,7 @@ function addCameraAndControls() {
 
 function makeCubes() {
     for (var i = 0; i < playerStatArr.length; i++) {
-        var cube = new _player_cube2.default(playerStatArr[i]);
+        var cube = new _player_cube2.default(playerStatArr[i].teamName);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
         cubeArr.push(cube.mesh);
@@ -227,7 +226,6 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 
