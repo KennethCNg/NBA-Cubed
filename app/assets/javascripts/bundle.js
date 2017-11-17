@@ -69,7 +69,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(console) {
 
 var _three = __webpack_require__(56);
 
@@ -82,6 +82,10 @@ var API = _interopRequireWildcard(_api_util);
 var _player_cube = __webpack_require__(359);
 
 var _player_cube2 = _interopRequireDefault(_player_cube);
+
+var _stats = __webpack_require__(360);
+
+var _stats2 = _interopRequireDefault(_stats);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -100,26 +104,59 @@ var scene = void 0,
     lines = void 0,
     map = void 0,
     controls = void 0;
-var data = API.fetchPlayers();
-var players = data.responseJSON.cumulativeplayerstats.playerstatsentry;
+var playerStatArr = [];
 var cubeArr = [];
-var teamNames = [];
 
 init();
 animate();
 
 // controls everything
 function init() {
-    grabTeamNames();
 
+    grabStats();
     addScene();
     addCameraAndControls();
     addLight();
-    grabTeamNames();
     makeCubes();
 }
 
 /////////////////////  HELPER FUNCTIONS ////////////////////////
+
+// Grab team names from API
+function grabStats() {
+    var data = API.fetchPlayers();
+    var playersJSON = data.responseJSON.cumulativeplayerstats.playerstatsentry;
+    var len = playersJSON.length;
+    var playerObj = void 0,
+        teamName = void 0,
+        firstName = void 0,
+        lastName = void 0,
+        gamesPlayed = void 0,
+        twoPts = void 0,
+        threePts = void 0,
+        ftMade = void 0;
+
+    for (var i = 0; i < len; i++) {
+        teamName = playersJSON[i].team.Name;
+        firstName = playersJSON[i].player.FirstName;
+        lastName = playersJSON[i].player.LastName;
+        gamesPlayed = playersJSON[i].stats.GamesPlayed["#text"];
+        twoPts = playersJSON[i].stats.Fg2PtMade["#text"];
+        threePts = playersJSON[i].stats.Fg3PtMade["#text"];
+        ftMade = playersJSON[i].stats.FtMade["#text"];
+
+        // NO SCRUBS
+        if (twoPts === "0" && threePts === "0" && ftMade === "0") {
+            continue;
+        }
+
+        playerObj = new _stats2.default(teamName, firstName, lastName, gamesPlayed, twoPts, threePts, ftMade);
+        playerStatArr.push(playerObj);
+    }
+
+    console.log(playerStatArr);
+    return playerStatArr;
+}
 
 // Add scene
 function addScene() {
@@ -133,7 +170,7 @@ function addScene() {
 
 // Add light to the scene
 function addLight() {
-    light = new THREE.AmbientLight(0xffffff, 0.9);
+    light = new THREE.AmbientLight(0xffffff, 1);
     // light = new THREE.DirectionalLight( 0xffffff, 1 );
     // light = new THREE.PointLight("white", 3, 1000);
     // light.position.set( 400, 400, 400 );
@@ -163,19 +200,9 @@ function addCameraAndControls() {
     controls.update();
 }
 
-// Grab team names from API
-function grabTeamNames() {
-    var len = players.length;
-
-    for (var i = 0; i < len; i++) {
-        teamNames.push(players[i].team.Name);
-    }
-    return teamNames;
-}
-
 function makeCubes() {
-    for (var i = 0; i < teamNames.length; i++) {
-        var cube = new _player_cube2.default(teamNames[i]);
+    for (var i = 0; i < playerStatArr.length; i++) {
+        var cube = new _player_cube2.default(playerStatArr[i]);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
         cubeArr.push(cube.mesh);
@@ -200,6 +227,7 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 
@@ -2939,6 +2967,63 @@ var playerCube = function () {
 }();
 
 exports.default = playerCube;
+
+/***/ }),
+
+/***/ 360:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _api_util = __webpack_require__(357);
+
+var API = _interopRequireWildcard(_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PlayerStat = function () {
+    function PlayerStat(teamName, firstName, lastName, gamesPlayed, twoPts, threePts, ftMade) {
+        _classCallCheck(this, PlayerStat);
+
+        this.teamName = teamName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.twoPts = twoPts;
+        this.threePts = threePts;
+        this.ftMade = ftMade;
+        this.gamesPlayed = gamesPlayed;
+        this.ppg = this.addPoints(gamesPlayed, twoPts, threePts, ftMade);
+    }
+
+    _createClass(PlayerStat, [{
+        key: 'addPoints',
+        value: function addPoints(gamesPlayed, twoPts, threePts, ftMade) {
+            gamesPlayed = parseInt(gamesPlayed);
+            twoPts = parseInt(twoPts);
+            threePts = parseInt(threePts);
+            ftMade = parseInt(ftMade);
+            var ppg = (twoPts + threePts + ftMade) / gamesPlayed;
+
+            // round to nearest hundreth place : http://www.javascripter.net/faq/rounding.htm
+            ppg = Math.round(100 * ppg) / 100;
+
+            return ppg;
+        }
+    }]);
+
+    return PlayerStat;
+}();
+
+exports.default = PlayerStat;
 
 /***/ }),
 
