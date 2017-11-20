@@ -45042,7 +45042,7 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(console) {
+
 
 var _three = __webpack_require__(0);
 
@@ -45088,7 +45088,7 @@ function init() {
 
     // functions that deal with construction
     grabStats();
-    sortPlayersByPpg();
+    // sortPlayersByPpg();
 
     // functions that deal with making environment
     addScene();
@@ -45130,7 +45130,6 @@ function grabStats() {
         playerObj = new _stats2.default(teamName, firstName, lastName, gamesPlayed, twoPts, threePts, ftMade);
         playerStatArr.push(playerObj);
     }
-
     return playerStatArr;
 }
 
@@ -45148,9 +45147,10 @@ function compare(a, b) {
 }
 
 // Sorts the array of players by points
-function sortPlayersByPpg() {
-    console.log(playerStatArr.sort(compare));
-}
+// function sortPlayersByPpg() {
+//     console.log(playerStatArr.sort(compare));
+// }
+
 
 // Add scene
 function addScene() {
@@ -45195,8 +45195,10 @@ function addCameraAndControls() {
 }
 
 function makeCubes() {
+    var angle = void 0;
     for (var i = 0; i < playerStatArr.length; i++) {
-        var cube = new _player_cube2.default(playerStatArr[i].teamName);
+        angle = i % 360;
+        var cube = new _player_cube2.default(playerStatArr[i].teamName, angle);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
         cubeArr.push(cube.mesh);
@@ -45221,7 +45223,6 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 6 */
@@ -46054,29 +46055,48 @@ var teamGeometry = {
 };
 
 var playerCube = function () {
-    function playerCube(team) {
+    function playerCube(team, angle) {
         _classCallCheck(this, playerCube);
 
-        this.xPos = this.generateRandNum();
-        this.yPos = this.generateRandNum();
-        this.zPos = this.generateRandDepth();
+        this.angle = angle;
+        this.xPos = this.generateXPos();
+        this.yPos = this.generateYPos();
+        this.zPos = 0;
         this.mesh = this.createMesh(team);
     }
 
-    // determine random position of cube
-
-
     _createClass(playerCube, [{
-        key: 'generateRandNum',
-        value: function generateRandNum() {
-            var num = Math.random() * 600;
-            var sign = Math.round(Math.random() * 100);
-
-            if (sign % 2 === 0) {
-                num = 0 - num;
-            }
-            return num;
+        key: 'generateYPos',
+        value: function generateYPos() {
+            var yLimit = Math.sin(this.angle) * 200;
+            return yLimit;
+            // let randY = Math.random() * 200;
+            // if ( randY > yLimit ) {
+            // return this.generateYPos();
+            // } else {
+            // return randY;
+            // }
         }
+
+        // determine position of cube
+
+    }, {
+        key: 'generateXPos',
+        value: function generateXPos() {
+            return Math.cos(this.angle) * 200;
+        }
+
+        // determine random position of cube
+        // generateRandNum() {
+        //     let num = Math.random() * 600;
+        //     let sign = Math.round(Math.random() * 100);
+
+        //     if ( sign % 2 === 0 ) {
+        //         num = 0 - num;
+        //     }
+        //     return num;
+        // }
+
 
         // generate random z-plane
 
