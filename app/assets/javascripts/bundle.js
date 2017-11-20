@@ -45042,7 +45042,7 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(console) {
 
 var _three = __webpack_require__(0);
 
@@ -45088,7 +45088,7 @@ function init() {
 
     // functions that deal with construction
     grabStats();
-    // sortPlayersByPpg();
+    sortPlayersByPpg();
 
     // functions that deal with making environment
     addScene();
@@ -45139,25 +45139,26 @@ function compare(a, b) {
 
     var comparison = 0;
     if (playerA > playerB) {
-        comparison = 1;
-    } else if (playerA < playerB) {
         comparison = -1;
+    } else if (playerA < playerB) {
+        comparison = 1;
     }
     return comparison;
 }
 
 // Sorts the array of players by points
-// function sortPlayersByPpg() {
-//     console.log(playerStatArr.sort(compare));
-// }
+function sortPlayersByPpg() {
 
+    playerStatArr = playerStatArr.sort(compare).slice(0, 100);
+    console.log(playerStatArr);
+}
 
 // Add scene
 function addScene() {
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor("white", 1);
+    renderer.setClearColor("black", 1);
 
     document.body.appendChild(renderer.domElement);
 }
@@ -45187,7 +45188,7 @@ function addCameraAndControls() {
     controls.enableRotate = true;
     controls.rotateSpeed = 1.0;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.5;
+    controls.autoRotateSpeed = 0;
     controls.minDistance = 0;
     controls.maxDistance = 1000;
 
@@ -45195,10 +45196,18 @@ function addCameraAndControls() {
 }
 
 function makeCubes() {
+
     var angle = void 0;
-    for (var i = 0; i < playerStatArr.length; i++) {
+    var zPos = void 0;
+    var radius = void 0;
+    var len = playerStatArr.length;
+    console.log(len);
+    for (var i = 0; i < len; i++) {
         angle = i % 360;
-        var cube = new _player_cube2.default(playerStatArr[i].teamName, angle);
+
+        zPos = i * 2;
+        radius = i * 2;
+        var cube = new _player_cube2.default(playerStatArr[i].teamName, angle, zPos, radius);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
         cubeArr.push(cube.mesh);
@@ -45223,6 +45232,7 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 6 */
@@ -46055,56 +46065,26 @@ var teamGeometry = {
 };
 
 var playerCube = function () {
-    function playerCube(team, angle) {
+    function playerCube(team, angle, zPos, radius) {
         _classCallCheck(this, playerCube);
 
         this.angle = angle;
+        this.radius = radius;
         this.xPos = this.generateXPos();
         this.yPos = this.generateYPos();
-        this.zPos = 0;
+        this.zPos = zPos;
         this.mesh = this.createMesh(team);
     }
 
     _createClass(playerCube, [{
         key: 'generateYPos',
         value: function generateYPos() {
-            var yLimit = Math.sin(this.angle) * 200;
-            return yLimit;
-            // let randY = Math.random() * 200;
-            // if ( randY > yLimit ) {
-            // return this.generateYPos();
-            // } else {
-            // return randY;
-            // }
+            return Math.sin(this.angle) * this.radius;
         }
-
-        // determine position of cube
-
     }, {
         key: 'generateXPos',
         value: function generateXPos() {
-            return Math.cos(this.angle) * 200;
-        }
-
-        // determine random position of cube
-        // generateRandNum() {
-        //     let num = Math.random() * 600;
-        //     let sign = Math.round(Math.random() * 100);
-
-        //     if ( sign % 2 === 0 ) {
-        //         num = 0 - num;
-        //     }
-        //     return num;
-        // }
-
-
-        // generate random z-plane
-
-    }, {
-        key: 'generateRandDepth',
-        value: function generateRandDepth() {
-            var num = Math.random() * 800;
-            return num;
+            return Math.cos(this.angle) * this.radius;
         }
 
         // create singular cube
