@@ -45149,8 +45149,8 @@ function compare(a, b) {
 // Sorts the array of players by points
 function sortPlayersByPpg() {
 
-    playerStatArr = playerStatArr.sort(compare).slice(0, 100);
-    console.log(playerStatArr);
+    playerStatArr = playerStatArr.sort(compare);
+    console.log(playerStatArr.slice(0, 100));
 }
 
 // Add scene
@@ -45179,7 +45179,7 @@ function addLight() {
 function addCameraAndControls() {
     // camera
     camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
-    camera.position.z = 500;
+    camera.position.z = -100;
 
     // controls
     controls = new OrbitControls(camera);
@@ -45190,23 +45190,20 @@ function addCameraAndControls() {
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0;
     controls.minDistance = 0;
-    controls.maxDistance = 1000;
+    controls.maxDistance = 3000;
 
     controls.update();
 }
 
 function makeCubes() {
-
     var angle = void 0;
     var zPos = void 0;
     var radius = void 0;
     var len = playerStatArr.length;
-    console.log(len);
     for (var i = 0; i < len; i++) {
         angle = i % 360;
-
-        zPos = i * 2;
-        radius = i * 2;
+        zPos = len - i * 5;
+        radius = i;
         var cube = new _player_cube2.default(playerStatArr[i].teamName, angle, zPos, radius);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
@@ -46087,7 +46084,7 @@ var playerCube = function () {
             return Math.cos(this.angle) * this.radius;
         }
 
-        // create singular cube
+        // this colors the cube to the specific team colors
 
     }, {
         key: 'createMesh',
@@ -46136,7 +46133,7 @@ var hawksMaterial = exports.hawksMaterial = function hawksMaterial() {
 };
 
 var hawksGeometry = exports.hawksGeometry = function hawksGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#C8102E");
     var volt = new THREE.Color("#C4D600");
     var granite = new THREE.Color("#25282A");
@@ -46162,7 +46159,7 @@ var celticsMaterial = exports.celticsMaterial = function celticsMaterial() {
 };
 
 var celticsGeometry = exports.celticsGeometry = function celticsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var green = new THREE.Color("#007A33");
     var silver = new THREE.Color("#C0C0C0");
     var black = new THREE.Color("black");
@@ -46188,7 +46185,7 @@ var netsMaterial = exports.netsMaterial = function netsMaterial() {
 };
 
 var netsGeometry = exports.netsGeometry = function netsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var white = new THREE.Color("white");
     var black = new THREE.Color("black");
     var colors = [black, white, black];
@@ -46213,7 +46210,7 @@ var hornetsMaterial = exports.hornetsMaterial = function hornetsMaterial() {
 };
 
 var hornetsGeometry = exports.hornetsGeometry = function hornetsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var purple = new THREE.Color("#201747");
     var teal = new THREE.Color("#00778B");
     var gray = new THREE.Color("#888B8D");
@@ -46239,7 +46236,7 @@ var bullsMaterial = exports.bullsMaterial = function bullsMaterial() {
 };
 
 var bullsGeometry = exports.bullsGeometry = function bullsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#BA0C2F");
     var white = new THREE.Color("white");
     var black = new THREE.Color("black");
@@ -46265,7 +46262,7 @@ var cavsMaterial = exports.cavsMaterial = function cavsMaterial() {
 };
 
 var cavsGeometry = exports.cavsGeometry = function cavsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var wine = new THREE.Color("#6F263D");
     var gold = new THREE.Color("#FFB81C");
     var navy = new THREE.Color("#041E42");
@@ -46291,7 +46288,7 @@ var mavsMaterial = exports.mavsMaterial = function mavsMaterial() {
 };
 
 var mavsGeometry = exports.mavsGeometry = function mavsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#0050B5");
     var silver = new THREE.Color("#8D9093");
     var navy = new THREE.Color("#0C2340");
@@ -46317,7 +46314,7 @@ var nuggetsMaterial = exports.nuggetsMaterial = function nuggetsMaterial() {
 };
 
 var nuggetsGeometry = exports.nuggetsGeometry = function nuggetsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var lightBlue = new THREE.Color("#418FDE");
     var gold = new THREE.Color("#FFC72C");
     var navy = new THREE.Color("#041E42");
@@ -46343,7 +46340,7 @@ var pistonsMaterial = exports.pistonsMaterial = function pistonsMaterial() {
 };
 
 var pistonsGeometry = exports.pistonsGeometry = function pistonsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
     var red = new THREE.Color("#D50032");
     var white = new THREE.Color("white");
@@ -46369,7 +46366,7 @@ var warriorsMaterial = exports.warriorsMaterial = function warriorsMaterial() {
 };
 
 var warriorsGeometry = exports.warriorsGeometry = function warriorsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
     var gold = new THREE.Color("#FFC72D");
     var silver = new THREE.Color("#8D9093");
@@ -46395,7 +46392,7 @@ var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
 };
 
 var rocketsGeometry = exports.rocketsGeometry = function rocketsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#BA0C2F");
     var silver = new THREE.Color("#8D9093");
     var mustard = new THREE.Color("#FDB927");
@@ -46421,7 +46418,7 @@ var pacersMaterial = exports.pacersMaterial = function pacersMaterial() {
 };
 
 var pacersGeometry = exports.pacersGeometry = function pacersGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#041E42");
     var gold = new THREE.Color("#FFB81C");
     var silver = new THREE.Color("#B1B3B3");
@@ -46447,7 +46444,7 @@ var clippersMaterial = exports.clippersMaterial = function clippersMaterial() {
 };
 
 var clippersGeometry = exports.clippersGeometry = function clippersGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
     var red = new THREE.Color("#D50032");
     var gray = new THREE.Color("#B1B3B3");
@@ -46473,7 +46470,7 @@ var lakersMaterial = exports.lakersMaterial = function lakersMaterial() {
 };
 
 var lakersGeometry = exports.lakersGeometry = function lakersGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var purple = new THREE.Color("#702F8A");
     var gold = new THREE.Color("#FFC72C");
     var white = new THREE.Color("white");
@@ -46499,7 +46496,7 @@ var grizzlesMaterial = exports.grizzlesMaterial = function grizzlesMaterial() {
 };
 
 var grizzlesGeometry = exports.grizzlesGeometry = function grizzlesGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var darkBlue = new THREE.Color("#23375B");
     var blue = new THREE.Color("#6189B9");
     var lightBlue = new THREE.Color("#BBD1E4");
@@ -46525,7 +46522,7 @@ var heatMaterial = exports.heatMaterial = function heatMaterial() {
 };
 
 var heatGeometry = exports.heatGeometry = function heatGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#862633");
     var yellow = new THREE.Color("#FFA300");
     var white = new THREE.Color("white");
@@ -46551,7 +46548,7 @@ var bucksMaterial = exports.bucksMaterial = function bucksMaterial() {
 };
 
 var bucksGeometry = exports.bucksGeometry = function bucksGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var green = new THREE.Color("#2C5234");
     var cream = new THREE.Color("#DDCBA4");
     var blue = new THREE.Color("#0057B8");
@@ -46577,7 +46574,7 @@ var twolvesMaterial = exports.twolvesMaterial = function twolvesMaterial() {
 };
 
 var twolvesGeometry = exports.twolvesGeometry = function twolvesGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var darkBlue = new THREE.Color("#002B5C");
     var gray = new THREE.Color("#C6CFD4");
     var blue = new THREE.Color("#005083");
@@ -46603,7 +46600,7 @@ var pelicansMaterial = exports.pelicansMaterial = function pelicansMaterial() {
 };
 
 var pelicansGeometry = exports.pelicansGeometry = function pelicansGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#002B5C");
     var red = new THREE.Color("#E31937");
     var gold = new THREE.Color("#B4975A");
@@ -46629,7 +46626,7 @@ var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
 };
 
 var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
     var orange = new THREE.Color("#FF671F");
     var silver = new THREE.Color("#B1B3B3");
@@ -46655,7 +46652,7 @@ var thunderMaterial = exports.thunderMaterial = function thunderMaterial() {
 };
 
 var thunderGeometry = exports.thunderGeometry = function thunderGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#007DC3");
     var orange = new THREE.Color("#F05133");
     var yellow = new THREE.Color("#FDBB30");
@@ -46681,7 +46678,7 @@ var magicMaterial = exports.magicMaterial = function magicMaterial() {
 };
 
 var magicGeometry = exports.magicGeometry = function magicGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#007DC5");
     var silver = new THREE.Color("#C4CED3");
     var white = new THREE.Color("white");
@@ -46707,7 +46704,7 @@ var sixersMaterial = exports.sixersMaterial = function sixersMaterial() {
 };
 
 var sixersGeometry = exports.sixersGeometry = function sixersGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#006BB6");
     var red = new THREE.Color("#ED174C");
     var white = new THREE.Color("white");
@@ -46733,7 +46730,7 @@ var sunsMaterial = exports.sunsMaterial = function sunsMaterial() {
 };
 
 var sunsGeometry = exports.sunsGeometry = function sunsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var orange = new THREE.Color("#E56020");
     var purple = new THREE.Color("#1D1160");
     var gray = new THREE.Color("#63717A");
@@ -46759,7 +46756,7 @@ var blazersMaterial = exports.blazersMaterial = function blazersMaterial() {
 };
 
 var blazersGeometry = exports.blazersGeometry = function blazersGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#F0163A");
     var gray = new THREE.Color("#B6BFBF");
     var white = new THREE.Color("white");
@@ -46785,7 +46782,7 @@ var kingsMaterial = exports.kingsMaterial = function kingsMaterial() {
 };
 
 var kingsGeometry = exports.kingsGeometry = function kingsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var purple = new THREE.Color("#724C9F");
     var gray = new THREE.Color("#8E9090");
     var white = new THREE.Color("white");
@@ -46811,7 +46808,7 @@ var spursMaterial = exports.spursMaterial = function spursMaterial() {
 };
 
 var spursGeometry = exports.spursGeometry = function spursGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var black = new THREE.Color("black");
     var gray = new THREE.Color("#B6BFBF");
     var white = new THREE.Color("white");
@@ -46837,7 +46834,7 @@ var raptorsMaterial = exports.raptorsMaterial = function raptorsMaterial() {
 };
 
 var raptorsGeometry = exports.raptorsGeometry = function raptorsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#CE1141");
     var purple = new THREE.Color("#9400D3");
     var silver = new THREE.Color("#C4CED3");
@@ -46863,7 +46860,7 @@ var jazzMaterial = exports.jazzMaterial = function jazzMaterial() {
 };
 
 var jazzGeometry = exports.jazzGeometry = function jazzGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#002B5C");
     var yellow = new THREE.Color("#F9A01B");
     var green = new THREE.Color("#00471B");
@@ -46889,7 +46886,7 @@ var wizardsMaterial = exports.wizardsMaterial = function wizardsMaterial() {
 };
 
 var wizardsGeometry = exports.wizardsGeometry = function wizardsGeometry() {
-    geometry = new THREE.BoxGeometry(32, 32, 32);
+    geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#0C2340");
     var red = new THREE.Color("#C8102E");
     var silver = new THREE.Color("#8D9093");
@@ -46943,8 +46940,8 @@ var PlayerStat = function () {
         key: 'addPoints',
         value: function addPoints(gamesPlayed, twoPts, threePts, ftMade) {
             gamesPlayed = parseInt(gamesPlayed);
-            twoPts = parseInt(twoPts);
-            threePts = parseInt(threePts);
+            twoPts = parseInt(twoPts) * 2;
+            threePts = parseInt(threePts) * 3;
             ftMade = parseInt(ftMade);
             var ppg = (twoPts + threePts + ftMade) / gamesPlayed;
 
