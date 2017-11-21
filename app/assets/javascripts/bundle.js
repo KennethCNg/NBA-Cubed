@@ -65,6 +65,126 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/*global window, global*/
+var util = __webpack_require__(3)
+var assert = __webpack_require__(9)
+var now = __webpack_require__(10)
+
+var slice = Array.prototype.slice
+var console
+var times = {}
+
+if (typeof global !== "undefined" && global.console) {
+    console = global.console
+} else if (typeof window !== "undefined" && window.console) {
+    console = window.console
+} else {
+    console = {}
+}
+
+var functions = [
+    [log, "log"],
+    [info, "info"],
+    [warn, "warn"],
+    [error, "error"],
+    [time, "time"],
+    [timeEnd, "timeEnd"],
+    [trace, "trace"],
+    [dir, "dir"],
+    [consoleAssert, "assert"]
+]
+
+for (var i = 0; i < functions.length; i++) {
+    var tuple = functions[i]
+    var f = tuple[0]
+    var name = tuple[1]
+
+    if (!console[name]) {
+        console[name] = f
+    }
+}
+
+module.exports = console
+
+function log() {}
+
+function info() {
+    console.log.apply(console, arguments)
+}
+
+function warn() {
+    console.log.apply(console, arguments)
+}
+
+function error() {
+    console.warn.apply(console, arguments)
+}
+
+function time(label) {
+    times[label] = now()
+}
+
+function timeEnd(label) {
+    var time = times[label]
+    if (!time) {
+        throw new Error("No such label: " + label)
+    }
+
+    var duration = now() - time
+    console.log(label + ": " + duration + "ms")
+}
+
+function trace() {
+    var err = new Error()
+    err.name = "Trace"
+    err.message = util.format.apply(null, arguments)
+    console.error(err.stack)
+}
+
+function dir(object) {
+    console.log(util.inspect(object) + "\n")
+}
+
+function consoleAssert(expression) {
+    if (!expression) {
+        var arr = slice.call(arguments, 1)
+        assert.ok(false, util.format.apply(null, arr))
+    }
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44300,127 +44420,7 @@ function CanvasRenderer() {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/*global window, global*/
-var util = __webpack_require__(3)
-var assert = __webpack_require__(9)
-var now = __webpack_require__(10)
-
-var slice = Array.prototype.slice
-var console
-var times = {}
-
-if (typeof global !== "undefined" && global.console) {
-    console = global.console
-} else if (typeof window !== "undefined" && window.console) {
-    console = window.console
-} else {
-    console = {}
-}
-
-var functions = [
-    [log, "log"],
-    [info, "info"],
-    [warn, "warn"],
-    [error, "error"],
-    [time, "time"],
-    [timeEnd, "timeEnd"],
-    [trace, "trace"],
-    [dir, "dir"],
-    [consoleAssert, "assert"]
-]
-
-for (var i = 0; i < functions.length; i++) {
-    var tuple = functions[i]
-    var f = tuple[0]
-    var name = tuple[1]
-
-    if (!console[name]) {
-        console[name] = f
-    }
-}
-
-module.exports = console
-
-function log() {}
-
-function info() {
-    console.log.apply(console, arguments)
-}
-
-function warn() {
-    console.log.apply(console, arguments)
-}
-
-function error() {
-    console.warn.apply(console, arguments)
-}
-
-function time(label) {
-    times[label] = now()
-}
-
-function timeEnd(label) {
-    var time = times[label]
-    if (!time) {
-        throw new Error("No such label: " + label)
-    }
-
-    var duration = now() - time
-    console.log(label + ": " + duration + "ms")
-}
-
-function trace() {
-    var err = new Error()
-    err.name = "Trace"
-    err.message = util.format.apply(null, arguments)
-    console.error(err.stack)
-}
-
-function dir(object) {
-    console.log(util.inspect(object) + "\n")
-}
-
-function consoleAssert(expression) {
-    if (!expression) {
-        var arr = slice.call(arguments, 1)
-        assert.ok(false, util.format.apply(null, arr))
-    }
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 /* 3 */
@@ -45013,7 +45013,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6), __webpack_require__(0)))
 
 /***/ }),
 /* 4 */
@@ -45042,9 +45042,9 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(console) {
 
-var _three = __webpack_require__(0);
+
+var _three = __webpack_require__(2);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -45074,9 +45074,13 @@ var scene = void 0,
     mesh = void 0,
     sphere = void 0,
     light = void 0,
+    light2 = void 0,
     lines = void 0,
     map = void 0,
-    controls = void 0;
+    controls = void 0,
+    raycaster = void 0,
+    mouse = void 0,
+    INTERSECTED = void 0;
 var playerStatArr = [];
 var cubeArr = [];
 
@@ -45086,20 +45090,23 @@ animate();
 // controls everything
 function init() {
 
-    // functions that deal with construction
+    // functions that provide properties for the cube to be built
     grabStats();
     sortPlayersByPpg();
 
     // functions that deal with making environment
     addScene();
     addCameraAndControls();
+    addClickHandler();
     addLight();
+
+    // function actually makes the cube
     makeCubes();
 }
 
-/////////////////////  HELPER FUNCTIONS ////////////////////////
+/////////////////////////////////  HELPER FUNCTIONS /////////////////////////////////////
 
-// Grab team names from API
+// Grab stats from API
 function grabStats() {
     var data = API.fetchPlayers();
     var playersJSON = data.responseJSON.cumulativeplayerstats.playerstatsentry;
@@ -45133,6 +45140,7 @@ function grabStats() {
     return playerStatArr;
 }
 
+// comparator function to sort players
 function compare(a, b) {
     var playerA = a.ppg;
     var playerB = b.ppg;
@@ -45148,9 +45156,20 @@ function compare(a, b) {
 
 // Sorts the array of players by points
 function sortPlayersByPpg() {
-
     playerStatArr = playerStatArr.sort(compare);
-    console.log(playerStatArr.slice(0, 100));
+}
+
+function onMouseMove(event) {
+    // calculate mouse position in normalized device coordinates
+    // (-1 to +1) for both components
+    mouse.x = event.clientX / window.innerWidth * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+// adds functionality to highlight and click cubes
+function addClickHandler() {
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2(), INTERSECTED;
 }
 
 // Add scene
@@ -45166,12 +45185,14 @@ function addScene() {
 // Add light to the scene
 function addLight() {
     light = new THREE.AmbientLight(0xffffff, 1);
+    // light = new THREE.PointLight( 0xffffff, 2);
+    // light.position.set( 0, 0, 500 );
+    // light2 = new THREE.PointLight( 0xffffff, 2);
+    // light2.position.set( 0, 0, 250 );
     // light = new THREE.DirectionalLight( 0xffffff, 1 );
     // light = new THREE.PointLight("white", 3, 1000);
     // light.position.set( 400, 400, 400 );
-    // scene.add(light);
     // scene.add(new THREE.PointLightHelper(light, 3));
-
     scene.add(light);
 }
 
@@ -45179,7 +45200,9 @@ function addLight() {
 function addCameraAndControls() {
     // camera
     camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight);
-    camera.position.z = -100;
+    camera.position.x = 0;
+    camera.position.y = 0;
+    camera.position.z = 1000;
 
     // controls
     controls = new OrbitControls(camera);
@@ -45190,21 +45213,22 @@ function addCameraAndControls() {
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0;
     controls.minDistance = 0;
-    controls.maxDistance = 3000;
+    // controls.maxDistance = 0;
 
     controls.update();
 }
 
 function makeCubes() {
     var angle = void 0;
-    var zPos = void 0;
+    var ppg = void 0;
     var radius = void 0;
     var len = playerStatArr.length;
     for (var i = 0; i < len; i++) {
+        // angle determines the x & y coordinates of the cube
         angle = i % 360;
-        zPos = len - i * 5;
+        ppg = playerStatArr[i].ppg;
         radius = i;
-        var cube = new _player_cube2.default(playerStatArr[i].teamName, angle, zPos, radius);
+        var cube = new _player_cube2.default(playerStatArr[i].teamName, angle, ppg, radius);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
         cubeArr.push(cube.mesh);
@@ -45213,7 +45237,7 @@ function makeCubes() {
 }
 
 function rotateCubes() {
-    // iterates through cubeArr and rotates them
+    // iterates through cubeArr and rotates each cube
     for (var i = 0; i < cubeArr.length; i++) {
         cubeArr[i].rotation.x += 0.015;
         cubeArr[i].rotation.y += 0.015;
@@ -45227,9 +45251,30 @@ function animate() {
     rotateCubes();
 
     controls.update();
+
+    // update the picking ray with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // calculate objects intersecting the picking ray
+    for (var i = 0; i < scene.children.length; i++) {
+        var intersects = raycaster.intersectObjects(scene.children[i]);
+        if (intersects.length > 0) {
+            if (INTERSECTED != intersects[0].object) {
+                if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+                INTERSECTED = intersects[0].object;
+                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                INTERSECTED.material.emissive.setHex("red");
+            }
+        } else {
+            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            INTERSECTED = null;
+        }
+    }
     renderer.render(scene, camera);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+window.addEventListener('mousemove', onMouseMove, false);
+window.requestAnimationFrame(animate);
 
 /***/ }),
 /* 6 */
@@ -45957,7 +46002,7 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 10 */
@@ -45987,7 +46032,7 @@ var _team_colors = __webpack_require__(12);
 
 var Team = _interopRequireWildcard(_team_colors);
 
-var _three = __webpack_require__(0);
+var _three = __webpack_require__(2);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -46062,16 +46107,20 @@ var teamGeometry = {
 };
 
 var playerCube = function () {
-    function playerCube(team, angle, zPos, radius) {
+    function playerCube(team, angle, ppg, radius) {
         _classCallCheck(this, playerCube);
 
         this.angle = angle;
         this.radius = radius;
+        this.ppg = ppg;
         this.xPos = this.generateXPos();
         this.yPos = this.generateYPos();
-        this.zPos = zPos;
+        this.zPos = this.generateZPos();
         this.mesh = this.createMesh(team);
     }
+
+    // generates the swirl that you see
+
 
     _createClass(playerCube, [{
         key: 'generateYPos',
@@ -46082,6 +46131,14 @@ var playerCube = function () {
         key: 'generateXPos',
         value: function generateXPos() {
             return Math.cos(this.angle) * this.radius;
+        }
+
+        // z-plane position of cube is determined by the player's points
+
+    }, {
+        key: 'generateZPos',
+        value: function generateZPos() {
+            return this.ppg * 20;
         }
 
         // this colors the cube to the specific team colors
@@ -46111,7 +46168,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.wizardsGeometry = exports.wizardsMaterial = exports.jazzGeometry = exports.jazzMaterial = exports.raptorsGeometry = exports.raptorsMaterial = exports.spursGeometry = exports.spursMaterial = exports.kingsGeometry = exports.kingsMaterial = exports.blazersGeometry = exports.blazersMaterial = exports.sunsGeometry = exports.sunsMaterial = exports.sixersGeometry = exports.sixersMaterial = exports.magicGeometry = exports.magicMaterial = exports.thunderGeometry = exports.thunderMaterial = exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.pacersGeometry = exports.pacersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
 
-var _three = __webpack_require__(0);
+var _three = __webpack_require__(2);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -47982,7 +48039,7 @@ exports.default = PlayerStat;
 	return OrbitControls;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);
