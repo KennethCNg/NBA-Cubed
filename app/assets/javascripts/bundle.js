@@ -45184,9 +45184,9 @@ function addScene() {
 
 // Add light to the scene
 function addLight() {
-    // light = new THREE.AmbientLight(0xffffff,1);
-    light = new THREE.PointLight(0xffffff, 2);
-    light.position.set(0, 0, 500);
+    light = new THREE.AmbientLight(0xffffff, 1);
+    // light = new THREE.PointLight( 0xffffff, 2);
+    // light.position.set( 0, 0, 500 );
     // light2 = new THREE.PointLight( 0xffffff, 2);
     // light2.position.set( 0, 0, 250 );
     // light = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -45255,11 +45255,27 @@ function animate() {
     // update the picking ray with the camera and mouse position
 
     raycaster.setFromCamera(mouse, camera);
-    // calculate objects intersecting the picking ray
 
+    // calculate objects intersecting the picking ray
     var intersects = raycaster.intersectObjects(scene.children);
-    for (var i = 0; i < intersects.length; i++) {
-        intersects[i].object.material.color.set(0xff0000);
+    if (intersects.length > 0) {
+        if (INTERSECTED != intersects[0].object) {
+            if (INTERSECTED) {
+                INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            }
+            INTERSECTED = intersects[0].object;
+            INTERSECTED.illuminate = true;
+            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+            if (INTERSECTED.illuminate) {
+                INTERSECTED.material.emissive.setHex(0x9984D8);
+            }
+        }
+    } else {
+        if (INTERSECTED) {
+            INTERSECTED.illuminate = false;
+            INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+        }
+        INTERSECTED = null;
     }
     renderer.render(scene, camera);
 }
