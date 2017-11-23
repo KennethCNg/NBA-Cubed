@@ -45184,9 +45184,9 @@ function addScene() {
 
 // Add light to the scene
 function addLight() {
-    light = new THREE.AmbientLight(0xffffff, 1);
-    // light = new THREE.PointLight( 0xffffff, 2);
-    // light.position.set( 0, 0, 500 );
+    // light = new THREE.AmbientLight(0xffffff,1);
+    light = new THREE.PointLight(0xffffff, 2);
+    light.position.set(0, 0, 500);
     // light2 = new THREE.PointLight( 0xffffff, 2);
     // light2.position.set( 0, 0, 250 );
     // light = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -45231,7 +45231,7 @@ function makeCubes() {
         var cube = new _player_cube2.default(playerStatArr[i].teamName, angle, ppg, radius);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
-        cubeArr.push(cube.mesh);
+        cubeArr.push(cube);
         scene.add(cube.mesh);
     }
 }
@@ -45239,8 +45239,8 @@ function makeCubes() {
 function rotateCubes() {
     // iterates through cubeArr and rotates each cube
     for (var i = 0; i < cubeArr.length; i++) {
-        cubeArr[i].rotation.x += 0.015;
-        cubeArr[i].rotation.y += 0.015;
+        cubeArr[i].mesh.rotation.x += 0.015;
+        cubeArr[i].mesh.rotation.y += 0.015;
     }
 }
 
@@ -45253,28 +45253,18 @@ function animate() {
     controls.update();
 
     // update the picking ray with the camera and mouse position
-    raycaster.setFromCamera(mouse, camera);
 
+    raycaster.setFromCamera(mouse, camera);
     // calculate objects intersecting the picking ray
-    for (var i = 0; i < scene.children.length; i++) {
-        var intersects = raycaster.intersectObjects(scene.children[i]);
-        if (intersects.length > 0) {
-            if (INTERSECTED != intersects[0].object) {
-                if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
-                INTERSECTED = intersects[0].object;
-                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                INTERSECTED.material.emissive.setHex("red");
-            }
-        } else {
-            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
-            INTERSECTED = null;
-        }
+
+    var intersects = raycaster.intersectObjects(scene.children);
+    for (var i = 0; i < intersects.length; i++) {
+        intersects[i].object.material.color.set(0xff0000);
     }
     renderer.render(scene, camera);
 }
 
 window.addEventListener('mousemove', onMouseMove, false);
-window.requestAnimationFrame(animate);
 
 /***/ }),
 /* 6 */
@@ -46055,7 +46045,7 @@ var teamMaterial = {
     "Pacers": Team.pacersMaterial(),
     "Clippers": Team.clippersMaterial(),
     "Lakers": Team.lakersMaterial(),
-    "Grizzles": Team.grizzlesMaterial(),
+    "Grizzlies": Team.grizzlesMaterial(),
     "Heat": Team.heatMaterial(),
     "Bucks": Team.bucksMaterial(),
     "Timberwolves": Team.twolvesMaterial(),
@@ -46063,9 +46053,9 @@ var teamMaterial = {
     "Knicks": Team.knicksMaterial(),
     "Thunder": Team.thunderMaterial(),
     "Magic": Team.magicMaterial(),
-    "Sixers": Team.sixersMaterial(),
+    "76ers": Team.sixersMaterial(),
     "Suns": Team.sunsMaterial(),
-    "Trailblazers": Team.blazersMaterial(),
+    "Trail Blazers": Team.blazersMaterial(),
     "Kings": Team.kingsMaterial(),
     "Spurs": Team.spursMaterial(),
     "Raptors": Team.raptorsMaterial(),
@@ -46088,7 +46078,7 @@ var teamGeometry = {
     "Pacers": Team.pacersGeometry(),
     "Clippers": Team.clippersGeometry(),
     "Lakers": Team.lakersGeometry(),
-    "Grizzles": Team.grizzlesGeometry(),
+    "Grizzlies": Team.grizzlesGeometry(),
     "Heat": Team.heatGeometry(),
     "Bucks": Team.bucksGeometry(),
     "Timberwolves": Team.twolvesGeometry(),
@@ -46096,9 +46086,9 @@ var teamGeometry = {
     "Knicks": Team.knicksGeometry(),
     "Thunder": Team.thunderGeometry(),
     "Magic": Team.magicGeometry(),
-    "Sixers": Team.sixersGeometry(),
+    "76ers": Team.sixersGeometry(),
     "Suns": Team.sunsGeometry(),
-    "Trailblazers": Team.blazersGeometry(),
+    "Trail Blazers": Team.blazersGeometry(),
     "Kings": Team.kingsGeometry(),
     "Spurs": Team.spursGeometry(),
     "Raptors": Team.raptorsGeometry(),
