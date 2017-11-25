@@ -65,126 +65,6 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/*global window, global*/
-var util = __webpack_require__(3)
-var assert = __webpack_require__(9)
-var now = __webpack_require__(10)
-
-var slice = Array.prototype.slice
-var console
-var times = {}
-
-if (typeof global !== "undefined" && global.console) {
-    console = global.console
-} else if (typeof window !== "undefined" && window.console) {
-    console = window.console
-} else {
-    console = {}
-}
-
-var functions = [
-    [log, "log"],
-    [info, "info"],
-    [warn, "warn"],
-    [error, "error"],
-    [time, "time"],
-    [timeEnd, "timeEnd"],
-    [trace, "trace"],
-    [dir, "dir"],
-    [consoleAssert, "assert"]
-]
-
-for (var i = 0; i < functions.length; i++) {
-    var tuple = functions[i]
-    var f = tuple[0]
-    var name = tuple[1]
-
-    if (!console[name]) {
-        console[name] = f
-    }
-}
-
-module.exports = console
-
-function log() {}
-
-function info() {
-    console.log.apply(console, arguments)
-}
-
-function warn() {
-    console.log.apply(console, arguments)
-}
-
-function error() {
-    console.warn.apply(console, arguments)
-}
-
-function time(label) {
-    times[label] = now()
-}
-
-function timeEnd(label) {
-    var time = times[label]
-    if (!time) {
-        throw new Error("No such label: " + label)
-    }
-
-    var duration = now() - time
-    console.log(label + ": " + duration + "ms")
-}
-
-function trace() {
-    var err = new Error()
-    err.name = "Trace"
-    err.message = util.format.apply(null, arguments)
-    console.error(err.stack)
-}
-
-function dir(object) {
-    console.log(util.inspect(object) + "\n")
-}
-
-function consoleAssert(expression) {
-    if (!expression) {
-        var arr = slice.call(arguments, 1)
-        assert.ok(false, util.format.apply(null, arr))
-    }
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44420,7 +44300,127 @@ function CanvasRenderer() {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/*global window, global*/
+var util = __webpack_require__(3)
+var assert = __webpack_require__(9)
+var now = __webpack_require__(10)
+
+var slice = Array.prototype.slice
+var console
+var times = {}
+
+if (typeof global !== "undefined" && global.console) {
+    console = global.console
+} else if (typeof window !== "undefined" && window.console) {
+    console = window.console
+} else {
+    console = {}
+}
+
+var functions = [
+    [log, "log"],
+    [info, "info"],
+    [warn, "warn"],
+    [error, "error"],
+    [time, "time"],
+    [timeEnd, "timeEnd"],
+    [trace, "trace"],
+    [dir, "dir"],
+    [consoleAssert, "assert"]
+]
+
+for (var i = 0; i < functions.length; i++) {
+    var tuple = functions[i]
+    var f = tuple[0]
+    var name = tuple[1]
+
+    if (!console[name]) {
+        console[name] = f
+    }
+}
+
+module.exports = console
+
+function log() {}
+
+function info() {
+    console.log.apply(console, arguments)
+}
+
+function warn() {
+    console.log.apply(console, arguments)
+}
+
+function error() {
+    console.warn.apply(console, arguments)
+}
+
+function time(label) {
+    times[label] = now()
+}
+
+function timeEnd(label) {
+    var time = times[label]
+    if (!time) {
+        throw new Error("No such label: " + label)
+    }
+
+    var duration = now() - time
+    console.log(label + ": " + duration + "ms")
+}
+
+function trace() {
+    var err = new Error()
+    err.name = "Trace"
+    err.message = util.format.apply(null, arguments)
+    console.error(err.stack)
+}
+
+function dir(object) {
+    console.log(util.inspect(object) + "\n")
+}
+
+function consoleAssert(expression) {
+    if (!expression) {
+        var arr = slice.call(arguments, 1)
+        assert.ok(false, util.format.apply(null, arr))
+    }
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 3 */
@@ -45013,7 +45013,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6), __webpack_require__(1)))
 
 /***/ }),
 /* 4 */
@@ -45044,7 +45044,7 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
 "use strict";
 
 
-var _three = __webpack_require__(2);
+var _three = __webpack_require__(0);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -45080,6 +45080,7 @@ var scene = void 0,
     controls = void 0,
     raycaster = void 0,
     mouse = void 0,
+    intersectedCube = void 0,
     INTERSECTED = void 0;
 var playerStatArr = [];
 var cubeArr = [];
@@ -45228,7 +45229,7 @@ function makeCubes() {
         angle = i % 360;
         ppg = playerStatArr[i].ppg;
         radius = i;
-        var cube = new _player_cube2.default(playerStatArr[i].teamName, angle, ppg, radius);
+        var cube = new _player_cube2.default(playerStatArr[i].firstName, playerStatArr[i].lastName, playerStatArr[i].teamName, angle, ppg, radius);
         // set position within the scene //
         cube.mesh.position.set(cube.xPos, cube.yPos, cube.zPos);
         cubeArr.push(cube);
@@ -45255,26 +45256,17 @@ function animate() {
     // update the picking ray with the camera and mouse position
 
     raycaster.setFromCamera(mouse, camera);
-
     // calculate objects intersecting the picking ray
     var intersects = raycaster.intersectObjects(scene.children);
     if (intersects.length > 0) {
-        if (INTERSECTED != intersects[0].object) {
-            if (INTERSECTED) {
-                INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
-            }
+        if (INTERSECTED !== intersects[0].object) {
+            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
             INTERSECTED = intersects[0].object;
-            INTERSECTED.illuminate = true;
             INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-            if (INTERSECTED.illuminate) {
-                INTERSECTED.material.emissive.setHex(0x9984D8);
-            }
+            INTERSECTED.material.emissive.setHex(0x9984D8);
         }
     } else {
-        if (INTERSECTED) {
-            INTERSECTED.illuminate = false;
-            INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
-        }
+        if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
         INTERSECTED = null;
     }
     renderer.render(scene, camera);
@@ -46008,7 +46000,7 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 10 */
@@ -46038,46 +46030,13 @@ var _team_colors = __webpack_require__(12);
 
 var Team = _interopRequireWildcard(_team_colors);
 
-var _three = __webpack_require__(2);
+var _three = __webpack_require__(0);
 
 var THREE = _interopRequireWildcard(_three);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var teamMaterial = {
-    "Hawks": Team.hawksMaterial(),
-    "Celtics": Team.celticsMaterial(),
-    "Nets": Team.netsMaterial(),
-    "Hornets": Team.hornetsMaterial(),
-    "Bulls": Team.bullsMaterial(),
-    "Cavaliers": Team.cavsMaterial(),
-    "Mavericks": Team.mavsMaterial(),
-    "Nuggets": Team.nuggetsMaterial(),
-    "Pistons": Team.pistonsMaterial(),
-    "Warriors": Team.warriorsMaterial(),
-    "Rockets": Team.rocketsMaterial(),
-    "Pacers": Team.pacersMaterial(),
-    "Clippers": Team.clippersMaterial(),
-    "Lakers": Team.lakersMaterial(),
-    "Grizzlies": Team.grizzlesMaterial(),
-    "Heat": Team.heatMaterial(),
-    "Bucks": Team.bucksMaterial(),
-    "Timberwolves": Team.twolvesMaterial(),
-    "Pelicans": Team.pelicansMaterial(),
-    "Knicks": Team.knicksMaterial(),
-    "Thunder": Team.thunderMaterial(),
-    "Magic": Team.magicMaterial(),
-    "76ers": Team.sixersMaterial(),
-    "Suns": Team.sunsMaterial(),
-    "Trail Blazers": Team.blazersMaterial(),
-    "Kings": Team.kingsMaterial(),
-    "Spurs": Team.spursMaterial(),
-    "Raptors": Team.raptorsMaterial(),
-    "Jazz": Team.jazzMaterial(),
-    "Wizards": Team.wizardsMaterial()
-};
 
 var teamGeometry = {
     "Hawks": Team.hawksGeometry(),
@@ -46113,9 +46072,11 @@ var teamGeometry = {
 };
 
 var playerCube = function () {
-    function playerCube(team, angle, ppg, radius) {
+    function playerCube(fname, lname, team, angle, ppg, radius) {
         _classCallCheck(this, playerCube);
 
+        this.fname = fname;
+        this.lname = lname;
         this.angle = angle;
         this.radius = radius;
         this.ppg = ppg;
@@ -46123,6 +46084,7 @@ var playerCube = function () {
         this.yPos = this.generateYPos();
         this.zPos = this.generateZPos();
         this.mesh = this.createMesh(team);
+        // this.illuminate = this.illuminate();
     }
 
     // generates the swirl that you see
@@ -46152,7 +46114,13 @@ var playerCube = function () {
     }, {
         key: 'createMesh',
         value: function createMesh(team) {
-            var mesh = new THREE.Mesh(teamGeometry['' + team], teamMaterial['' + team]);
+
+            var material = material = new THREE.MeshPhongMaterial({
+                color: 0xffffff,
+                vertexColors: THREE.FaceColors
+            });
+
+            var mesh = new THREE.Mesh(teamGeometry['' + team], material);
             return mesh;
         }
     }]);
@@ -46172,9 +46140,9 @@ exports.default = playerCube;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.wizardsGeometry = exports.wizardsMaterial = exports.jazzGeometry = exports.jazzMaterial = exports.raptorsGeometry = exports.raptorsMaterial = exports.spursGeometry = exports.spursMaterial = exports.kingsGeometry = exports.kingsMaterial = exports.blazersGeometry = exports.blazersMaterial = exports.sunsGeometry = exports.sunsMaterial = exports.sixersGeometry = exports.sixersMaterial = exports.magicGeometry = exports.magicMaterial = exports.thunderGeometry = exports.thunderMaterial = exports.knicksGeometry = exports.knicksMaterial = exports.pelicansGeometry = exports.pelicansMaterial = exports.twolvesGeometry = exports.twolvesMaterial = exports.bucksGeometry = exports.bucksMaterial = exports.heatGeometry = exports.heatMaterial = exports.grizzlesGeometry = exports.grizzlesMaterial = exports.lakersGeometry = exports.lakersMaterial = exports.clippersGeometry = exports.clippersMaterial = exports.pacersGeometry = exports.pacersMaterial = exports.rocketsGeometry = exports.rocketsMaterial = exports.warriorsGeometry = exports.warriorsMaterial = exports.pistonsGeometry = exports.pistonsMaterial = exports.nuggetsGeometry = exports.nuggetsMaterial = exports.mavsGeometry = exports.mavsMaterial = exports.cavsGeometry = exports.cavsMaterial = exports.bullsGeometry = exports.bullsMaterial = exports.hornetsGeometry = exports.hornetsMaterial = exports.netsGeometry = exports.netsMaterial = exports.celticsGeometry = exports.celticsMaterial = exports.hawksGeometry = exports.hawksMaterial = undefined;
+exports.wizardsGeometry = exports.jazzGeometry = exports.raptorsGeometry = exports.spursGeometry = exports.kingsGeometry = exports.blazersGeometry = exports.sunsGeometry = exports.sixersGeometry = exports.magicGeometry = exports.thunderGeometry = exports.knicksGeometry = exports.pelicansGeometry = exports.twolvesGeometry = exports.bucksGeometry = exports.heatGeometry = exports.grizzlesGeometry = exports.lakersGeometry = exports.clippersGeometry = exports.pacersGeometry = exports.rocketsGeometry = exports.warriorsGeometry = exports.pistonsGeometry = exports.nuggetsGeometry = exports.mavsGeometry = exports.cavsGeometry = exports.bullsGeometry = exports.hornetsGeometry = exports.netsGeometry = exports.celticsGeometry = exports.hawksGeometry = undefined;
 
-var _three = __webpack_require__(2);
+var _three = __webpack_require__(0);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -46186,15 +46154,6 @@ var geometry = void 0,
 
 
 // ATLANTA HAWKS
-var hawksMaterial = exports.hawksMaterial = function hawksMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var hawksGeometry = exports.hawksGeometry = function hawksGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#C8102E");
@@ -46212,15 +46171,6 @@ var hawksGeometry = exports.hawksGeometry = function hawksGeometry() {
 };
 
 // BOSTON CELTICS
-var celticsMaterial = exports.celticsMaterial = function celticsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var celticsGeometry = exports.celticsGeometry = function celticsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var green = new THREE.Color("#007A33");
@@ -46238,15 +46188,6 @@ var celticsGeometry = exports.celticsGeometry = function celticsGeometry() {
 };
 
 // BROOKLYN NETS
-var netsMaterial = exports.netsMaterial = function netsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var netsGeometry = exports.netsGeometry = function netsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var white = new THREE.Color("white");
@@ -46263,15 +46204,6 @@ var netsGeometry = exports.netsGeometry = function netsGeometry() {
 };
 
 // CHARLOTTE HORNETS
-var hornetsMaterial = exports.hornetsMaterial = function hornetsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var hornetsGeometry = exports.hornetsGeometry = function hornetsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var purple = new THREE.Color("#201747");
@@ -46289,15 +46221,6 @@ var hornetsGeometry = exports.hornetsGeometry = function hornetsGeometry() {
 };
 
 // CHICAGO BULLS
-var bullsMaterial = exports.bullsMaterial = function bullsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var bullsGeometry = exports.bullsGeometry = function bullsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#BA0C2F");
@@ -46315,15 +46238,6 @@ var bullsGeometry = exports.bullsGeometry = function bullsGeometry() {
 };
 
 // CLEVELAND CAVELIERS
-var cavsMaterial = exports.cavsMaterial = function cavsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var cavsGeometry = exports.cavsGeometry = function cavsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var wine = new THREE.Color("#6F263D");
@@ -46341,15 +46255,6 @@ var cavsGeometry = exports.cavsGeometry = function cavsGeometry() {
 };
 
 // DALLAS MAVERICKS
-var mavsMaterial = exports.mavsMaterial = function mavsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var mavsGeometry = exports.mavsGeometry = function mavsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#0050B5");
@@ -46367,15 +46272,6 @@ var mavsGeometry = exports.mavsGeometry = function mavsGeometry() {
 };
 
 // DENVER NUGGETS
-var nuggetsMaterial = exports.nuggetsMaterial = function nuggetsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var nuggetsGeometry = exports.nuggetsGeometry = function nuggetsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var lightBlue = new THREE.Color("#418FDE");
@@ -46393,15 +46289,6 @@ var nuggetsGeometry = exports.nuggetsGeometry = function nuggetsGeometry() {
 };
 
 // DETROIT PISTONS 
-var pistonsMaterial = exports.pistonsMaterial = function pistonsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var pistonsGeometry = exports.pistonsGeometry = function pistonsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
@@ -46419,15 +46306,6 @@ var pistonsGeometry = exports.pistonsGeometry = function pistonsGeometry() {
 };
 
 // GOLDEN STATE WARRIORS
-var warriorsMaterial = exports.warriorsMaterial = function warriorsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var warriorsGeometry = exports.warriorsGeometry = function warriorsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
@@ -46445,15 +46323,6 @@ var warriorsGeometry = exports.warriorsGeometry = function warriorsGeometry() {
 };
 
 // HOUSTON ROCKETS
-var rocketsMaterial = exports.rocketsMaterial = function rocketsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var rocketsGeometry = exports.rocketsGeometry = function rocketsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#BA0C2F");
@@ -46471,15 +46340,6 @@ var rocketsGeometry = exports.rocketsGeometry = function rocketsGeometry() {
 };
 
 // INDIANA PACERS
-var pacersMaterial = exports.pacersMaterial = function pacersMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var pacersGeometry = exports.pacersGeometry = function pacersGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#041E42");
@@ -46497,15 +46357,6 @@ var pacersGeometry = exports.pacersGeometry = function pacersGeometry() {
 };
 
 // LOS ANGELES CLIPPERS
-var clippersMaterial = exports.clippersMaterial = function clippersMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var clippersGeometry = exports.clippersGeometry = function clippersGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
@@ -46523,15 +46374,6 @@ var clippersGeometry = exports.clippersGeometry = function clippersGeometry() {
 };
 
 // LOS ANGELES LAKERS
-var lakersMaterial = exports.lakersMaterial = function lakersMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var lakersGeometry = exports.lakersGeometry = function lakersGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var purple = new THREE.Color("#702F8A");
@@ -46549,15 +46391,6 @@ var lakersGeometry = exports.lakersGeometry = function lakersGeometry() {
 };
 
 // MEMPHIS GRIZZLES
-var grizzlesMaterial = exports.grizzlesMaterial = function grizzlesMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var grizzlesGeometry = exports.grizzlesGeometry = function grizzlesGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var darkBlue = new THREE.Color("#23375B");
@@ -46575,15 +46408,6 @@ var grizzlesGeometry = exports.grizzlesGeometry = function grizzlesGeometry() {
 };
 
 // MIAMI HEAT
-var heatMaterial = exports.heatMaterial = function heatMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var heatGeometry = exports.heatGeometry = function heatGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#862633");
@@ -46601,15 +46425,6 @@ var heatGeometry = exports.heatGeometry = function heatGeometry() {
 };
 
 // MILWAUKEE BUCKS
-var bucksMaterial = exports.bucksMaterial = function bucksMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var bucksGeometry = exports.bucksGeometry = function bucksGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var green = new THREE.Color("#2C5234");
@@ -46627,15 +46442,6 @@ var bucksGeometry = exports.bucksGeometry = function bucksGeometry() {
 };
 
 // MILWAUKEE TIMBERWOLVES
-var twolvesMaterial = exports.twolvesMaterial = function twolvesMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var twolvesGeometry = exports.twolvesGeometry = function twolvesGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var darkBlue = new THREE.Color("#002B5C");
@@ -46653,15 +46459,6 @@ var twolvesGeometry = exports.twolvesGeometry = function twolvesGeometry() {
 };
 
 // NEW ORLEANS PELICANS
-var pelicansMaterial = exports.pelicansMaterial = function pelicansMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var pelicansGeometry = exports.pelicansGeometry = function pelicansGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#002B5C");
@@ -46679,15 +46476,6 @@ var pelicansGeometry = exports.pelicansGeometry = function pelicansGeometry() {
 };
 
 // NEW YORK KNICKS
-var knicksMaterial = exports.knicksMaterial = function knicksMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#003DA5");
@@ -46705,15 +46493,6 @@ var knicksGeometry = exports.knicksGeometry = function knicksGeometry() {
 };
 
 // OKLAHOMA CITY THUNDER
-var thunderMaterial = exports.thunderMaterial = function thunderMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var thunderGeometry = exports.thunderGeometry = function thunderGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#007DC3");
@@ -46731,15 +46510,6 @@ var thunderGeometry = exports.thunderGeometry = function thunderGeometry() {
 };
 
 // ORLANDO MAGIC
-var magicMaterial = exports.magicMaterial = function magicMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var magicGeometry = exports.magicGeometry = function magicGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#007DC5");
@@ -46757,15 +46527,6 @@ var magicGeometry = exports.magicGeometry = function magicGeometry() {
 };
 
 // PHILADELPHIA SIXERS
-var sixersMaterial = exports.sixersMaterial = function sixersMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var sixersGeometry = exports.sixersGeometry = function sixersGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#006BB6");
@@ -46783,15 +46544,6 @@ var sixersGeometry = exports.sixersGeometry = function sixersGeometry() {
 };
 
 // PHOENIX SUNS
-var sunsMaterial = exports.sunsMaterial = function sunsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var sunsGeometry = exports.sunsGeometry = function sunsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var orange = new THREE.Color("#E56020");
@@ -46809,15 +46561,6 @@ var sunsGeometry = exports.sunsGeometry = function sunsGeometry() {
 };
 
 // PORTLAND TRAILBLAZERS
-var blazersMaterial = exports.blazersMaterial = function blazersMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var blazersGeometry = exports.blazersGeometry = function blazersGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#F0163A");
@@ -46835,15 +46578,6 @@ var blazersGeometry = exports.blazersGeometry = function blazersGeometry() {
 };
 
 // SACRAMENTO KINGS
-var kingsMaterial = exports.kingsMaterial = function kingsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var kingsGeometry = exports.kingsGeometry = function kingsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var purple = new THREE.Color("#724C9F");
@@ -46861,15 +46595,6 @@ var kingsGeometry = exports.kingsGeometry = function kingsGeometry() {
 };
 
 // SAN ANTONIO SPURS
-var spursMaterial = exports.spursMaterial = function spursMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var spursGeometry = exports.spursGeometry = function spursGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var black = new THREE.Color("black");
@@ -46887,15 +46612,6 @@ var spursGeometry = exports.spursGeometry = function spursGeometry() {
 };
 
 // TORONTO RAPTORS
-var raptorsMaterial = exports.raptorsMaterial = function raptorsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var raptorsGeometry = exports.raptorsGeometry = function raptorsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var red = new THREE.Color("#CE1141");
@@ -46913,15 +46629,6 @@ var raptorsGeometry = exports.raptorsGeometry = function raptorsGeometry() {
 };
 
 // UTAH JAZZ
-var jazzMaterial = exports.jazzMaterial = function jazzMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var jazzGeometry = exports.jazzGeometry = function jazzGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#002B5C");
@@ -46939,15 +46646,6 @@ var jazzGeometry = exports.jazzGeometry = function jazzGeometry() {
 };
 
 // WASHINGTON WIZARDS
-var wizardsMaterial = exports.wizardsMaterial = function wizardsMaterial() {
-    material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        vertexColors: THREE.FaceColors
-    });
-
-    return material;
-};
-
 var wizardsGeometry = exports.wizardsGeometry = function wizardsGeometry() {
     geometry = new THREE.BoxGeometry(5, 5, 5);
     var blue = new THREE.Color("#0C2340");
@@ -48045,7 +47743,7 @@ exports.default = PlayerStat;
 	return OrbitControls;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ })
 /******/ ]);
