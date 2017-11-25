@@ -46039,36 +46039,36 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var teamGeometry = {
-    "Hawks": Team.hawksGeometry(),
-    "Celtics": Team.celticsGeometry(),
-    "Nets": Team.netsGeometry(),
-    "Hornets": Team.hornetsGeometry(),
-    "Bulls": Team.bullsGeometry(),
-    "Cavaliers": Team.cavsGeometry(),
-    "Mavericks": Team.mavsGeometry(),
-    "Nuggets": Team.nuggetsGeometry(),
-    "Pistons": Team.pistonsGeometry(),
-    "Warriors": Team.warriorsGeometry(),
-    "Rockets": Team.rocketsGeometry(),
-    "Pacers": Team.pacersGeometry(),
-    "Clippers": Team.clippersGeometry(),
-    "Lakers": Team.lakersGeometry(),
-    "Grizzlies": Team.grizzlesGeometry(),
-    "Heat": Team.heatGeometry(),
-    "Bucks": Team.bucksGeometry(),
-    "Timberwolves": Team.twolvesGeometry(),
-    "Pelicans": Team.pelicansGeometry(),
-    "Knicks": Team.knicksGeometry(),
-    "Thunder": Team.thunderGeometry(),
-    "Magic": Team.magicGeometry(),
-    "76ers": Team.sixersGeometry(),
-    "Suns": Team.sunsGeometry(),
-    "Trail Blazers": Team.blazersGeometry(),
-    "Kings": Team.kingsGeometry(),
-    "Spurs": Team.spursGeometry(),
-    "Raptors": Team.raptorsGeometry(),
-    "Jazz": Team.jazzGeometry(),
-    "Wizards": Team.wizardsGeometry()
+    "Hawks": Team.hawksGeometry,
+    "Celtics": Team.celticsGeometry,
+    "Nets": Team.netsGeometry,
+    "Hornets": Team.hornetsGeometry,
+    "Bulls": Team.bullsGeometry,
+    "Cavaliers": Team.cavsGeometry,
+    "Mavericks": Team.mavsGeometry,
+    "Nuggets": Team.nuggetsGeometry,
+    "Pistons": Team.pistonsGeometry,
+    "Warriors": Team.warriorsGeometry,
+    "Rockets": Team.rocketsGeometry,
+    "Pacers": Team.pacersGeometry,
+    "Clippers": Team.clippersGeometry,
+    "Lakers": Team.lakersGeometry,
+    "Grizzlies": Team.grizzlesGeometry,
+    "Heat": Team.heatGeometry,
+    "Bucks": Team.bucksGeometry,
+    "Timberwolves": Team.twolvesGeometry,
+    "Pelicans": Team.pelicansGeometry,
+    "Knicks": Team.knicksGeometry,
+    "Thunder": Team.thunderGeometry,
+    "Magic": Team.magicGeometry,
+    "76ers": Team.sixersGeometry,
+    "Suns": Team.sunsGeometry,
+    "Trail Blazers": Team.blazersGeometry,
+    "Kings": Team.kingsGeometry,
+    "Spurs": Team.spursGeometry,
+    "Raptors": Team.raptorsGeometry,
+    "Jazz": Team.jazzGeometry,
+    "Wizards": Team.wizardsGeometry
 };
 
 var playerCube = function () {
@@ -46120,7 +46120,9 @@ var playerCube = function () {
                 vertexColors: THREE.FaceColors
             });
 
-            var mesh = new THREE.Mesh(teamGeometry['' + team], material);
+            var geometry = teamGeometry['' + team];
+
+            var mesh = new THREE.Mesh(geometry(), material);
             return mesh;
         }
     }]);
