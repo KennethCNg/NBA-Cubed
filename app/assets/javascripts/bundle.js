@@ -45186,14 +45186,6 @@ function addScene() {
 // Add light to the scene
 function addLight() {
     light = new THREE.AmbientLight(0xffffff, 1);
-    // light = new THREE.PointLight( 0xffffff, 2);
-    // light.position.set( 0, 0, 500 );
-    // light2 = new THREE.PointLight( 0xffffff, 2);
-    // light2.position.set( 0, 0, 250 );
-    // light = new THREE.DirectionalLight( 0xffffff, 1 );
-    // light = new THREE.PointLight("white", 3, 1000);
-    // light.position.set( 400, 400, 400 );
-    // scene.add(new THREE.PointLightHelper(light, 3));
     scene.add(light);
 }
 
@@ -45213,8 +45205,8 @@ function addCameraAndControls() {
     controls.rotateSpeed = 1.0;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0;
-    controls.minDistance = 0;
-    // controls.maxDistance = 0;
+    // controls.minDistance = 0;
+    // controls.maxDistance = 1000;
 
     controls.update();
 }
@@ -45245,16 +45237,7 @@ function rotateCubes() {
     }
 }
 
-// animates
-function animate() {
-    requestAnimationFrame(animate);
-
-    rotateCubes();
-
-    controls.update();
-
-    // update the picking ray with the camera and mouse position
-
+function checkIntersection() {
     raycaster.setFromCamera(mouse, camera);
     // calculate objects intersecting the picking ray
     var intersects = raycaster.intersectObjects(scene.children);
@@ -45269,6 +45252,14 @@ function animate() {
         if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
         INTERSECTED = null;
     }
+}
+
+// animates
+function animate() {
+    requestAnimationFrame(animate);
+    rotateCubes();
+    controls.update();
+    checkIntersection();
     renderer.render(scene, camera);
 }
 
