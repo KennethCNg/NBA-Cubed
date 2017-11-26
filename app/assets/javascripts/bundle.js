@@ -45042,7 +45042,7 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(console) {
 
 var _three = __webpack_require__(0);
 
@@ -45171,6 +45171,12 @@ function onMouseMove(event) {
 function addClickHandler() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2(), INTERSECTED;
+
+    document.addEventListener('mousedown', onDocumentMouseDown, false);
+}
+
+function onDocumentMouseDown() {
+    console.log("Click");
 }
 
 // Add scene
@@ -45264,6 +45270,7 @@ function animate() {
 }
 
 window.addEventListener('mousemove', onMouseMove, false);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 6 */
