@@ -45069,18 +45069,11 @@ var OrbitControls = __webpack_require__(14)(THREE);
 var scene = void 0,
     camera = void 0,
     renderer = void 0,
-    geometry = void 0,
-    material = void 0,
     mesh = void 0,
-    sphere = void 0,
     light = void 0,
-    light2 = void 0,
-    lines = void 0,
-    map = void 0,
     controls = void 0,
     raycaster = void 0,
     mouse = void 0,
-    intersectedCube = void 0,
     INTERSECTED = void 0;
 var playerStatArr = [];
 var cubeArr = [];
@@ -45098,7 +45091,7 @@ function init() {
     // functions that deal with making environment
     addScene();
     addCameraAndControls();
-    addClickHandler();
+    addMouseHandler();
     addLight();
 
     // function actually makes the cube
@@ -45168,15 +45161,12 @@ function onMouseMove(event) {
 }
 
 // adds functionality to highlight and click cubes
-function addClickHandler() {
+function addMouseHandler() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2(), INTERSECTED;
 
-    document.addEventListener('mousedown', onDocumentMouseDown, false);
-}
-
-function onDocumentMouseDown() {
-    console.log("Click");
+    window.addEventListener('mousemove', onMouseMove, false);
+    document.addEventListener('mousedown', onDocumentMouseDown, cubeArr, false);
 }
 
 // Add scene
@@ -45243,6 +45233,7 @@ function rotateCubes() {
     }
 }
 
+// gives the hover effect over cubes
 function checkIntersection() {
     raycaster.setFromCamera(mouse, camera);
     // calculate objects intersecting the picking ray
@@ -45260,6 +45251,24 @@ function checkIntersection() {
     }
 }
 
+function onDocumentMouseDown() {
+    console.log("Click");
+
+    console.log(INTERSECTED);
+    console.log(cubeArr);
+    var clickedCube = void 0;
+    for (var i = 0; i < cubeArr.length; i++) {
+        if (cubeArr[i].mesh.uuid === INTERSECTED.uuid) {
+            clickedCube = cubeArr[i];
+            break;
+        }
+    }
+    console.log(clickedCube.team);
+    console.log(clickedCube.fname);
+    console.log(clickedCube.lname);
+    console.log(clickedCube.ppg);
+}
+
 // animates
 function animate() {
     requestAnimationFrame(animate);
@@ -45268,8 +45277,6 @@ function animate() {
     checkIntersection();
     renderer.render(scene, camera);
 }
-
-window.addEventListener('mousemove', onMouseMove, false);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
@@ -46073,6 +46080,7 @@ var playerCube = function () {
     function playerCube(fname, lname, team, angle, ppg, radius) {
         _classCallCheck(this, playerCube);
 
+        this.team = team;
         this.fname = fname;
         this.lname = lname;
         this.angle = angle;
@@ -46082,7 +46090,6 @@ var playerCube = function () {
         this.yPos = this.generateYPos();
         this.zPos = this.generateZPos();
         this.mesh = this.createMesh(team);
-        // this.illuminate = this.illuminate();
     }
 
     // generates the swirl that you see
