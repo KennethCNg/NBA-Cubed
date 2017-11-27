@@ -13,5 +13,10 @@ RESOLVED:
 
 Ok, fixed it. So the issue was I had a hashmap with invoked functions that created a material. My first issue was that because I used the same material for every cube so I shouldn't have had special functions to create team specific materials if all materials would be the same anyways. Secondly, Because all materials were initialized when the code is first run through by the browser because I had Immediately Invoked Functions. What I should've done is left them as variables, and invoked them only when I needed them.
 
+### Progress
+
+![screenshot](./app/assets/images/update1.gif)
+
+Ability to hover. Each cube's material matches the player of the cube. Order of the cubes from top of the funnel to the bottom is arranged by points per game.
 
 
