@@ -15,8 +15,12 @@ Ok, fixed it. So the issue was I had a hashmap with invoked functions that creat
 
 ### Progress
 
+11/27/2017
+
 ![screenshot](./app/assets/images/update1.gif)
 
-Ability to hover. Each cube's material matches the player of the cube. Order of the cubes from top of the funnel to the bottom is arranged by points per game.
+Implemented the ability to hover over cubes. Each cube's material matches the player of the cube. Order of the cubes from top of the funnel to the bottom is arranged by points per game. 
+
+Need to implement clicking on each cube and showing the stats of the selected cube. Also allow typing to search for a player's cube, or search for player's from a team.
 
 
