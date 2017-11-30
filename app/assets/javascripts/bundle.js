@@ -60,11 +60,131 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/*global window, global*/
+var util = __webpack_require__(3)
+var assert = __webpack_require__(10)
+var now = __webpack_require__(11)
+
+var slice = Array.prototype.slice
+var console
+var times = {}
+
+if (typeof global !== "undefined" && global.console) {
+    console = global.console
+} else if (typeof window !== "undefined" && window.console) {
+    console = window.console
+} else {
+    console = {}
+}
+
+var functions = [
+    [log, "log"],
+    [info, "info"],
+    [warn, "warn"],
+    [error, "error"],
+    [time, "time"],
+    [timeEnd, "timeEnd"],
+    [trace, "trace"],
+    [dir, "dir"],
+    [consoleAssert, "assert"]
+]
+
+for (var i = 0; i < functions.length; i++) {
+    var tuple = functions[i]
+    var f = tuple[0]
+    var name = tuple[1]
+
+    if (!console[name]) {
+        console[name] = f
+    }
+}
+
+module.exports = console
+
+function log() {}
+
+function info() {
+    console.log.apply(console, arguments)
+}
+
+function warn() {
+    console.log.apply(console, arguments)
+}
+
+function error() {
+    console.warn.apply(console, arguments)
+}
+
+function time(label) {
+    times[label] = now()
+}
+
+function timeEnd(label) {
+    var time = times[label]
+    if (!time) {
+        throw new Error("No such label: " + label)
+    }
+
+    var duration = now() - time
+    console.log(label + ": " + duration + "ms")
+}
+
+function trace() {
+    var err = new Error()
+    err.name = "Trace"
+    err.message = util.format.apply(null, arguments)
+    console.error(err.stack)
+}
+
+function dir(object) {
+    console.log(util.inspect(object) + "\n")
+}
+
+function consoleAssert(expression) {
+    if (!expression) {
+        var arr = slice.call(arguments, 1)
+        assert.ok(false, util.format.apply(null, arr))
+    }
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44300,127 +44420,7 @@ function CanvasRenderer() {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/*global window, global*/
-var util = __webpack_require__(3)
-var assert = __webpack_require__(9)
-var now = __webpack_require__(10)
-
-var slice = Array.prototype.slice
-var console
-var times = {}
-
-if (typeof global !== "undefined" && global.console) {
-    console = global.console
-} else if (typeof window !== "undefined" && window.console) {
-    console = window.console
-} else {
-    console = {}
-}
-
-var functions = [
-    [log, "log"],
-    [info, "info"],
-    [warn, "warn"],
-    [error, "error"],
-    [time, "time"],
-    [timeEnd, "timeEnd"],
-    [trace, "trace"],
-    [dir, "dir"],
-    [consoleAssert, "assert"]
-]
-
-for (var i = 0; i < functions.length; i++) {
-    var tuple = functions[i]
-    var f = tuple[0]
-    var name = tuple[1]
-
-    if (!console[name]) {
-        console[name] = f
-    }
-}
-
-module.exports = console
-
-function log() {}
-
-function info() {
-    console.log.apply(console, arguments)
-}
-
-function warn() {
-    console.log.apply(console, arguments)
-}
-
-function error() {
-    console.warn.apply(console, arguments)
-}
-
-function time(label) {
-    times[label] = now()
-}
-
-function timeEnd(label) {
-    var time = times[label]
-    if (!time) {
-        throw new Error("No such label: " + label)
-    }
-
-    var duration = now() - time
-    console.log(label + ": " + duration + "ms")
-}
-
-function trace() {
-    var err = new Error()
-    err.name = "Trace"
-    err.message = util.format.apply(null, arguments)
-    console.error(err.stack)
-}
-
-function dir(object) {
-    console.log(util.inspect(object) + "\n")
-}
-
-function consoleAssert(expression) {
-    if (!expression) {
-        var arr = slice.call(arguments, 1)
-        assert.ok(false, util.format.apply(null, arr))
-    }
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 /* 3 */
@@ -44951,7 +44951,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(7);
+exports.isBuffer = __webpack_require__(8);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -44995,7 +44995,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(8);
+exports.inherits = __webpack_require__(9);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -45013,7 +45013,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7), __webpack_require__(0)))
 
 /***/ }),
 /* 4 */
@@ -45038,13 +45038,14 @@ var fetchPlayers = exports.fetchPlayers = function fetchPlayers() {
 };
 
 /***/ }),
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(console) {
 
-var _three = __webpack_require__(0);
+
+var _three = __webpack_require__(2);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -45052,11 +45053,11 @@ var _api_util = __webpack_require__(4);
 
 var API = _interopRequireWildcard(_api_util);
 
-var _player_cube = __webpack_require__(11);
+var _player_cube = __webpack_require__(12);
 
 var _player_cube2 = _interopRequireDefault(_player_cube);
 
-var _stats = __webpack_require__(13);
+var _stats = __webpack_require__(14);
 
 var _stats2 = _interopRequireDefault(_stats);
 
@@ -45064,7 +45065,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var OrbitControls = __webpack_require__(14)(THREE);
+var OrbitControls = __webpack_require__(15)(THREE);
 
 var scene = void 0,
     camera = void 0,
@@ -45074,6 +45075,11 @@ var scene = void 0,
     controls = void 0,
     raycaster = void 0,
     mouse = void 0,
+    context1 = void 0,
+    texture1 = void 0,
+    canvas1 = void 0,
+    sprite1 = void 0,
+    spriteMaterial = void 0,
     INTERSECTED = void 0;
 var playerStatArr = [];
 var cubeArr = [];
@@ -45207,6 +45213,8 @@ function addCameraAndControls() {
     controls.update();
 }
 
+function createTextLabel() {}
+
 function makeCubes() {
     var angle = void 0;
     var ppg = void 0;
@@ -45238,35 +45246,56 @@ function checkIntersection() {
     raycaster.setFromCamera(mouse, camera);
     // calculate objects intersecting the picking ray
     var intersects = raycaster.intersectObjects(scene.children);
+
     if (intersects.length > 0) {
+
         if (INTERSECTED !== intersects[0].object) {
-            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            if (INTERSECTED) {
+                INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            }
             INTERSECTED = intersects[0].object;
             INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
             INTERSECTED.material.emissive.setHex(0x9984D8);
         }
     } else {
-        if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+        if (INTERSECTED) {
+            INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+        }
         INTERSECTED = null;
     }
 }
 
-function onDocumentMouseDown() {
-    console.log("Click");
-
-    console.log(INTERSECTED);
-    console.log(cubeArr);
+// function that deals with clicked-on cubes
+function onDocumentMouseDown(event) {
     var clickedCube = void 0;
-    for (var i = 0; i < cubeArr.length; i++) {
-        if (cubeArr[i].mesh.uuid === INTERSECTED.uuid) {
-            clickedCube = cubeArr[i];
-            break;
+    if (INTERSECTED) {
+
+        // find player's stats
+        for (var i = 0; i < cubeArr.length; i++) {
+            if (cubeArr[i].mesh.uuid === INTERSECTED.uuid) {
+                clickedCube = cubeArr[i];
+                break;
+            }
+        }
+        if (clickedCube.mesh.domlabel) {
+            clickedCube.mesh.domlabel = null;
+        } else {
+            clickedCube.mesh.domlabel = document.createElement('div');
+            clickedCube.mesh.domlabel.innerHTML = 'Object';
+            clickedCube.mesh.domlabel.style.display = 'none';
+            clickedCube.mesh.domlabel.style.position = 'absolute';
+            var test = document.getElementsByTagName('body')[0].appendChild(clickedCube.mesh.domlabel);
         }
     }
-    console.log(clickedCube.team);
-    console.log(clickedCube.fname);
-    console.log(clickedCube.lname);
-    console.log(clickedCube.ppg);
+}
+
+function get_screen_xy(position) {
+    var pos = position.clone();
+    var projScreenMat = new THREE.Matrix4();
+    projScreenMat.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+    pos.applyMatrix4(projScreenMat);
+    return { x: (pos.x + 1) * window.innerWidth / 2,
+        y: (-pos.y + 1) * window.innerHeight / 2 };
 }
 
 // animates
@@ -45277,10 +45306,9 @@ function animate() {
     checkIntersection();
     renderer.render(scene, camera);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -45470,7 +45498,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -45481,7 +45509,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -45510,7 +45538,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46005,10 +46033,10 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = now
@@ -46019,7 +46047,7 @@ function now() {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46031,11 +46059,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _team_colors = __webpack_require__(12);
+var _team_colors = __webpack_require__(13);
 
 var Team = _interopRequireWildcard(_team_colors);
 
-var _three = __webpack_require__(0);
+var _three = __webpack_require__(2);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -46138,7 +46166,7 @@ var playerCube = function () {
 exports.default = playerCube;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46149,7 +46177,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.wizardsGeometry = exports.jazzGeometry = exports.raptorsGeometry = exports.spursGeometry = exports.kingsGeometry = exports.blazersGeometry = exports.sunsGeometry = exports.sixersGeometry = exports.magicGeometry = exports.thunderGeometry = exports.knicksGeometry = exports.pelicansGeometry = exports.twolvesGeometry = exports.bucksGeometry = exports.heatGeometry = exports.grizzlesGeometry = exports.lakersGeometry = exports.clippersGeometry = exports.pacersGeometry = exports.rocketsGeometry = exports.warriorsGeometry = exports.pistonsGeometry = exports.nuggetsGeometry = exports.mavsGeometry = exports.cavsGeometry = exports.bullsGeometry = exports.hornetsGeometry = exports.netsGeometry = exports.celticsGeometry = exports.hawksGeometry = undefined;
 
-var _three = __webpack_require__(0);
+var _three = __webpack_require__(2);
 
 var THREE = _interopRequireWildcard(_three);
 
@@ -46670,7 +46698,7 @@ var wizardsGeometry = exports.wizardsGeometry = function wizardsGeometry() {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46726,7 +46754,7 @@ var PlayerStat = function () {
 exports.default = PlayerStat;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(console) {module.exports = function( THREE ) {
@@ -47750,7 +47778,7 @@ exports.default = PlayerStat;
 	return OrbitControls;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);
