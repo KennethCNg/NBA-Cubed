@@ -45,10 +45,4 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '*']
   },
-  node: {
-    console: true,
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  }
 };
