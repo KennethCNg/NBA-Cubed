@@ -5,7 +5,7 @@
 [NBACUBED]: http://kennethcng.com/NBA-Cubed
 
 
-3D-NBA is 3D data visualization of all the players from the 2016-2017 season. Each cube represents an NBA player, and each cube's color is based on the player's team color scheme. The tip of the funnel represents the player with the most points. In this case, it's Russell Westbrook. Clicking on the cube will bring up that players statistics (pending).
+3D-NBA is 3D data visualization of all the players from the current 2017-2018 season. Each cube represents an NBA player, and each cube's color is based on the player's team color scheme. The tip of the funnel represents the player with the most points. In this case, it's Russell Westbrook. Clicking on the cube will bring up that players statistics (pending).
 
 The goal of this project was to have a cool visualization of the NBA landscape and how points are distributed amongst a team. However, the long-term goal would be to write code modular enough that a quick drop-down can be used to change points per game to assists, or rebounds, etc. Ultimately, this could be a tool for people to look at if they're curious on statistics such as which team has the most balanced scoring, or who currently is the league leader in steals, or watch players in real-time move in position from a day-to-day basis (however this last portion is long-long term).
 
