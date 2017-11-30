@@ -7,6 +7,18 @@
 
 3D-NBA is 3D data visualization of all the players from the 2016-2017 season. Each cube represents an NBA player, and each cube's color is based on the player's team color scheme. Clicking on the cube will bring up that players statistics.
 
+
+###Controls
+
+Click and drag, zoom, or use your keyboard arrows to move around the 3D world.
+
+### MVPs and Functionality
+
+- [x] Funnel-shape to give a depiction of the NBA landscape based on points-per-game by all the players in the NBA
+- [ ] Click on cubes to reveal stats of that player
+- [ ] Search functionality
+
+
 ### Technologies
 
 3D-NBA utilizes the three.js library, a cross-browser JavaScript library/wrapper around WebGL. 
