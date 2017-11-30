@@ -45066,21 +45066,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var OrbitControls = __webpack_require__(15)(THREE);
+var loader = new THREE.FontLoader();
 
 var scene = void 0,
     camera = void 0,
     renderer = void 0,
     mesh = void 0,
     light = void 0,
-    controls = void 0,
-    raycaster = void 0,
+    controls = void 0;
+var raycaster = void 0,
     mouse = void 0,
-    context1 = void 0,
-    texture1 = void 0,
-    canvas1 = void 0,
-    sprite1 = void 0,
-    spriteMaterial = void 0,
-    INTERSECTED = void 0;
+    INTERSECTED = void 0,
+    statDiv = void 0,
+    clickedCube = void 0;
+var revealedDivs = [];
 var playerStatArr = [];
 var cubeArr = [];
 
@@ -45213,8 +45212,6 @@ function addCameraAndControls() {
     controls.update();
 }
 
-function createTextLabel() {}
-
 function makeCubes() {
     var angle = void 0;
     var ppg = void 0;
@@ -45267,7 +45264,6 @@ function checkIntersection() {
 
 // function that deals with clicked-on cubes
 function onDocumentMouseDown(event) {
-    var clickedCube = void 0;
     if (INTERSECTED) {
 
         // find player's stats
@@ -45277,26 +45273,10 @@ function onDocumentMouseDown(event) {
                 break;
             }
         }
-        if (clickedCube.mesh.domlabel) {
-            clickedCube.mesh.domlabel = null;
-        } else {
-            clickedCube.mesh.domlabel = document.createElement('div');
-            clickedCube.mesh.domlabel.innerHTML = 'Object';
-            clickedCube.mesh.domlabel.style.display = 'none';
-            clickedCube.mesh.domlabel.style.position = 'absolute';
-            var test = document.getElementsByTagName('body')[0].appendChild(clickedCube.mesh.domlabel);
-        }
     }
 }
 
-function get_screen_xy(position) {
-    var pos = position.clone();
-    var projScreenMat = new THREE.Matrix4();
-    projScreenMat.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-    pos.applyMatrix4(projScreenMat);
-    return { x: (pos.x + 1) * window.innerWidth / 2,
-        y: (-pos.y + 1) * window.innerHeight / 2 };
-}
+function createStatsDiv() {}
 
 // animates
 function animate() {
