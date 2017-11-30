@@ -45077,7 +45077,6 @@ var raycaster = void 0,
     INTERSECTED = void 0,
     statDiv = void 0,
     clickedCube = void 0;
-var revealedDivs = [];
 var playerStatArr = [];
 var cubeArr = [];
 
@@ -45204,9 +45203,6 @@ function addCameraAndControls() {
     controls.rotateSpeed = 1.0;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0;
-    // controls.minDistance = 0;
-    // controls.maxDistance = 1000;
-
     controls.update();
 }
 
@@ -45273,8 +45269,6 @@ function onDocumentMouseDown(event) {
         }
     }
 }
-
-function createStatsDiv() {}
 
 // animates
 function animate() {
