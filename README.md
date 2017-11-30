@@ -1,6 +1,6 @@
 # NBA-Cubed
 
-[Live link][NBACUBED]
+[Live link][NBACUBED] PLEASE USE GOOGLE CHROME
 
 [NBACUBED]: http://kennethcng.com/NBA-Cubed
 
