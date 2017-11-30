@@ -44379,7 +44379,7 @@ function init() {
     (0, _timers.setInterval)(grabStats, 10000);
     sortPlayersByPpg();
 
-    // updates every 10 seconds
+    // requests new data from the API every 10 seconds
     (0, _timers.setInterval)(grabStats, 10000);
     (0, _timers.setInterval)(sortPlayersByPpg, 10000);
 
@@ -44561,6 +44561,8 @@ function onDocumentMouseDown(event) {
                 break;
             }
         }
+
+        console.log(clickedCube);
     }
 }
 
