@@ -1,5 +1,10 @@
 # NBA-Cubed
 
+[Live link][NBACUBED]
+
+[NBACUBED]: kennethcng.com/NBA-Cubed
+
+
 3D-NBA is 3D data visualization of all the players from the 2016-2017 season. Each cube represents an NBA player, and each cube's color is based on the player's team color scheme. Clicking on the cube will bring up that players statistics.
 
 ### Technologies
@@ -16,8 +21,6 @@ RESOLVED:
 ### Progress
 
 11/27/2017
-
-![screenshot](./app/assets/images/update1.gif)
 
 Implemented the ability to hover over cubes. Each cube's material matches the player of the cube. Order of the cubes from top of the funnel to the bottom is arranged by points per game. 
 
