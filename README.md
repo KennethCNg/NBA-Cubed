@@ -4,6 +4,7 @@
 
 [NBACUBED]: http://kennethcng.com/NBA-Cubed
 
+NOTE: This is currently unfinished. However, popping open Chrome Dev Tools, refreshing, and then clicking a cube will give you access to the player's stats.
 
 3D-NBA is 3D data visualization of all the players from the current 2017-2018 season. Each cube represents an NBA player, and each cube's color is based on the player's team color scheme. The tip of the funnel represents the player with the most points. In this case, it's James Harden. Clicking on the cube will bring up that players statistics (pending). As of right now, you can open the Chrome's dev tools, click 'Console', and now click on cube's will render the player's data from that cube within the console. 
 
