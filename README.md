@@ -17,7 +17,7 @@ Click and drag, zoom, or use your keyboard arrows to move around the 3D world.
 ### MVPs and Functionality
 
 - [x] Funnel-shape to give a depiction of the NBA landscape based on points-per-game by all the players in the NBA
-- [ ] Click on cubes to reveal stats of that player
+- [x] Click on cubes to reveal stats of that player
 - [ ] Search functionality
 
 ### Technologies
